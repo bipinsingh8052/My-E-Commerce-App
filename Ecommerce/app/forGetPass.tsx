@@ -25,8 +25,33 @@ export default function forGetPass() {
 
       </View>
       <View style={{ justifyContent:"center", alignItems:"center", width:"100%", marginTop:30, gap:20, padding:20}}>
-          <TextInput placeholder='New Password' style={{paddingLeft:20, width:"100%", fontSize: 16, borderRadius:20, backgroundColor:"white"}}/>
-          <TextInput placeholder='Repeat Password' style={{ paddingLeft:20,fontSize: 16, width:"100%", borderRadius:20, backgroundColor:"white"}}/>
+          <TextInput placeholder='New Password'  style={{
+                borderWidth: 1,
+                borderColor: '#999',
+                borderRadius: 6,
+                width:"80%",
+                paddingHorizontal: 12,
+                paddingVertical: 10,
+                marginTop: 24,
+                fontSize: 16,
+                color: '#000',backgroundColor:"lightgray"
+          }}
+          placeholderTextColor="#666"
+          secureTextEntry />
+          <TextInput placeholder='Repeat Password' style={{
+              borderWidth: 1,
+              borderColor: '#999',
+              borderRadius: 6,
+              width:"80%",
+              paddingHorizontal: 12,
+              paddingVertical: 10,
+              marginTop: 24,
+              fontSize: 16,
+              color: '#000',backgroundColor:"lightgray"
+          }}
+          
+          placeholderTextColor="#666"
+          secureTextEntry/>
         </View>
      
       <View style={{width:"100%", gap:20, padding:20, marginTop:120,  }}>

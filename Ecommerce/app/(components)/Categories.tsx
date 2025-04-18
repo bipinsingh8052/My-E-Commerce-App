@@ -1,24 +1,46 @@
 import { AntDesign } from '@expo/vector-icons';
+import axios from 'axios';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Loader from '../(components)/Loader'
+import { Text, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 
-const categories = [
-  { name: 'Clothing', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR132TBAD0-GhGhN8_2Xr-3obkFd4NzFbk6Hg&s' },
-  { name: 'Shoes', imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR132TBAD0-GhGhN8_2Xr-3obkFd4NzFbk6Hg&s" },
-  { name: 'Bags', imageUrl:  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR132TBAD0-GhGhN8_2Xr-3obkFd4NzFbk6Hg&s"},
-  { name: 'Lingerie', imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR132TBAD0-GhGhN8_2Xr-3obkFd4NzFbk6Hg&s"  },
-  { name: 'Watches', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR132TBAD0-GhGhN8_2Xr-3obkFd4NzFbk6Hg&s' },
-  { name: 'Hoodies', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR132TBAD0-GhGhN8_2Xr-3obkFd4NzFbk6Hg&s' },
-];
+
 
 export default function Categories() {
   const route = useRouter();
   const [activeCategory, setActiveCategory] = useState(false);
+  const [data,setData]=useState([]);
+  const [loader,setloader]=useState(false);
 
-  const gotoDetail = () => {
-    // route.push("/ProductDetailsAll");
+  let loading=async()=>{
+    setloader(true)
+    let api ="https://nexx-js-e-commerce-app-491i.vercel.app/api/categories";
+    try {
+      let response =await axios.get(api)
+      // const json=await response.json()
+      // console.log(response.data.imageUrl,"img url")
+      console.log(response.data);
+      // console.log(json)
+      setData(response.data);
+      
+      setloader(false)
+      
+      
+    } catch (error) {
+      setloader(false)
+    
+    }
+
+  }
+
+  const gotoNext = (id) => {
+    console.log(id)
+    route.push("/Product_Detail");
   };
+  useEffect(()=>{
+    loading()
+  },[])
 
   return (
     <View style={{ height: 300, marginTop: 10, marginLeft: 10, marginRight: 10 }}>
@@ -31,57 +53,62 @@ export default function Categories() {
           </View>
         </View>
       </View>
+      <Loader loading={loader}/>
 
       <ScrollView horizontal>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-          {categories.map((category, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => {setActiveCategory(true) }}
-              style={{
-                elevation: 10,
-                // borderWidth: 1,
-                borderColor:"transprent",
-                marginHorizontal: 5,
-                borderRadius: 5,
-                shadowColor:"#000",
-                shadowOpacity:0.25,
-                shadowRadius:8,
-                overflow: 'hidden',
-                marginTop: 5,
-                backgroundColor: activeCategory ? '#f0f8ff' : '#fff', // Change background color on click
-              }}
-            >
-              <View style={{ height: 220, width: 170, flexDirection: 'row' }}>
-                <View style={{ height: 220, width: 170, flexDirection: 'row', flexWrap: 'wrap', gap: 2, paddingLeft:4, paddingTop:2 }}>
-                  <Image
-                    source={{ uri: category.imageUrl }}
-                    style={{ height: 80, width: 80, borderRadius:5 }}
-                  />
-                  <Image
-                    source={{ uri: category.imageUrl }}
-                    style={{ height: 80, width: 80, borderRadius:5 }}
-                  />
-                  <Image
-                    source={{ uri: category.imageUrl }}
-                    style={{ height: 80, width: 80, borderRadius:5 }}
-                  />
-                  <Image
-                    source={{ uri: category.imageUrl }}
-                    style={{ height: 80, width: 80 , borderRadius:5}}
-                  />
-                  <View style={{paddingLeft:10, flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
-                  <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', paddingTop: 10 }}>
-                    {category.name}
-                  </Text>
-                  <Text style={{ fontSize: 17, fontWeight: '200', marginRight: 10, paddingTop: 10, paddingLeft: 30 }}>
-                    New
-                  </Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
+         
+           <FlatList
+      data={data}
+      // keyExtractor={(item) => item.id.toString()} // Adjust based on your data structure
+      renderItem={({ item }) => (
+        <TouchableOpacity
+        onPress={() => {setActiveCategory(true),gotoNext(item._id) }}
+        style={{
+          elevation: 10,
+          // borderWidth: 1,
+          borderColor:"transprent",
+          marginHorizontal: 5,
+          borderRadius: 5,
+          shadowColor:"#000",
+          shadowOpacity:0.25,
+          shadowRadius:8,
+          overflow: 'hidden',
+          marginTop: 5,
+          backgroundColor: activeCategory ? '#f0f8ff' : '#fff', // Change background color on click
+        }}
+      >
+        <View style={{ height: 220, width: 170, flexDirection: 'row' }}>
+          <View style={{ height: 220, width: 170, flexDirection: 'row', flexWrap: 'wrap', gap: 2, paddingLeft:4, paddingTop:2 }}>
+            <Image
+              source={{ uri: item.imageUrl }}
+              style={{ height: 80, width: 80, borderRadius:5 }}
+            />
+            <Image
+              source={{ uri: item.imageUrl }}
+              style={{ height: 80, width: 80, borderRadius:5 }}
+            />
+            <Image
+              source={{ uri:item.imageUrl }}
+              style={{ height: 80, width: 80, borderRadius:5 }}
+            />
+            <Image
+              source={{ uri: item.imageUrl }}
+              style={{ height: 80, width: 80 , borderRadius:5}}
+            />
+            <View style={{paddingLeft:10, flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
+            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', paddingTop: 10 }}>
+              {item.name}
+            </Text>
+            <Text style={{ fontSize: 17, fontWeight: '200', marginRight: 10, paddingTop: 10, paddingLeft: 30 }}>
+              New
+            </Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+      )}
+    />
         </View>
       </ScrollView>
     </View>

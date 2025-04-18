@@ -32,8 +32,8 @@ export default function Cart() {
           transparent={true}
           visible={modalVisible}
           >
-            <View style={{position:"absolute", top:0, flex:1, backgroundColor:"00FFFFFF", width:"100%", height:"100%", alignItems:"center", justifyContent:"center" }}>
-              <View style={{height:"auto", width:"80%", backgroundColor:"white", borderRadius:10, gap:20, borderWidth:0.5}}>
+            <View style={{position:"absolute", top:0, flex:1, backgroundColor:"f4f4f4", width:"100%", height:"100%", alignItems:"center", justifyContent:"center" }}>
+              <View style={{height:"auto", width:"80%", backgroundColor:"white", borderRadius:10, gap:20, borderWidth:0.5, borderColor:"transparent"}}>
                 <View style={{ marginTop:20, paddingHorizontal:10, gap:10}}>
                   <Text style={{fontSize:18, fontWeight:700 }}> Select One Option :</Text>
                 <RadioGroup  

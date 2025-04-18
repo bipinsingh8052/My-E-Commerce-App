@@ -14,21 +14,21 @@ export default function Profile() {
           <Text style={{fontSize:10, textAlign:"center", color:"white"}}> My Activity</Text>
         </TouchableOpacity>
        <View style={{alignItems:"center",   width:"30%", flexDirection:"row", justifyContent:"flex-end", gap:10}}>
-        <View style={{padding:10, backgroundColor:"gray", borderRadius:50, justifyContent:"center"}}>
-        <MaterialIcons name="qr-code-scanner" size={15} color={"blue"}  />
+        <View style={{padding:10, backgroundColor:"#4e9fe5", borderRadius:50, justifyContent:"center"}}>
+        <MaterialIcons name="qr-code-scanner" size={15} color={"white"} />
         </View>
-        <View style={{padding:10, backgroundColor:"gray", borderRadius:50, justifyContent:"center"}}>
-        <AntDesign name='barschart' size={15} color={"blue"}/>
+        <View style={{padding:10, backgroundColor:"#4e9fe5", borderRadius:50, justifyContent:"center"}}>
+        <AntDesign name='barschart' size={15} color={"white"}/>
         </View>
-        <View style={{padding:10, backgroundColor:"gray", borderRadius:50, justifyContent:"center"}}>
-        <AntDesign name="setting" size={15} color={"blue"}/>
+        <View style={{padding:10, backgroundColor:"#4e9fe5", borderRadius:50, justifyContent:"center"}}>
+        <AntDesign name="setting" size={15} color={"black"}/>
         </View>
        </View>
     </View>
     <View style={{paddingLeft:20, marginTop:8}}>
       <Text style={{fontSize:18, fontWeight:800}}>Hello , Bipin!</Text>
     </View>
-    <View style={{height:60, borderWidth:1, elevation:5, borderRadius:20, margin:5, backgroundColor:"gray", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+    <View style={{height:60, borderWidth:1, borderColor:"#02ccfe", elevation:5, borderRadius:20, margin:5, backgroundColor:"#87CEEb", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
       <Text style={{height:"100%", width:"80%", paddingVertical:10}}>
         <Text>Announcement</Text>
         <Text>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi eveniet itaque, enim re</Text>

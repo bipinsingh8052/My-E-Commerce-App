@@ -28,12 +28,14 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
   {
       id: '1', // acts as primary key, should be unique and non-empty string
       label: 'Express',
-      value: 'Express'
+      value: 'Express',
+      days:"7-5"
   },
   {
       id: '2',
       label: 'Standard',
-      value: 'Standard'
+      value: 'Standard',
+      days:"3-5"
   }
 ]), []);
   return(
@@ -44,8 +46,8 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
           transparent={true}
           visible={modalVisible}
           >
-            <View style={{position:"absolute", top:0, flex:1, backgroundColor:"00FFFFFF", width:"100%", height:"100%", alignItems:"center", justifyContent:"center" }}>
-              <View style={{height:"auto", width:"80%", backgroundColor:"white", borderRadius:10, gap:20, borderWidth:0.5}}>
+            <View style={{position:"absolute", top:0, flex:1, backgroundColor:"f4f4f4", width:"100%", height:"100%", alignItems:"center", justifyContent:"center" }}>
+              <View style={{height:"auto", width:"80%", backgroundColor:"white", borderRadius:10, gap:20, borderWidth:0.5, borderColor:"transparent"}}>
                 <View style={{ marginTop:20, paddingHorizontal:10, gap:10}}>
                   <Text style={{fontSize:18, fontWeight:700 }}> Select One Option :</Text>
                 <RadioGroup  
@@ -194,7 +196,7 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
 
       <View style={{ marginLeft: 10, flexDirection:"row", justifyContent:"space-between", gap:20 }}>
         <Text style={{ fontWeight: 'bold' }}>{btn.label}</Text>
-        <Text style={{color:"blue",  paddingHorizontal:20, backgroundColor:"white"}}> 5-7 days</Text>
+        <Text style={{color:"blue",  paddingHorizontal:20, backgroundColor:"white", borderRadius:10}}> {btn.days} days</Text>
         <Text style={{fontWeight:"bold"}}>Free</Text>
       </View>
     </TouchableOpacity>
@@ -209,7 +211,7 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
 
 
 {/* payment Method section */}
-<View style={{paddingHorizontal:20, marginTop:10}}>
+<View style={{paddingHorizontal:20, marginTop:10, marginBottom:90}}>
 
   <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
     <Text style={{fontSize:22, fontWeight:800}}>Payment Method</Text>
@@ -219,7 +221,7 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
 {/* payment Method section */}
 
     {/*Price section is there */}
-    <View style={{position:"absolute", bottom:0, backgroundColor:"white", width:"100%"}}>
+    <View style={{position:"absolute", bottom:0, zIndex:8, backgroundColor:"white", width:"100%"}}>
         <View style={{ height:60,flexDirection:"row", justifyContent
           :"space-between", alignItems:"center", paddingHorizontal:20
         }}>

@@ -6,6 +6,9 @@ import React from 'react';
 import { SafeAreaView, ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import Cart from '../(components)/AddtoCart/Cart';
+import Mostpopular from '../(components)/MostPopular';
+import NewItems from '../(components)/NewItems';
+import AllItems from '../(components)/AllItems';
 
 
 const YourScreen = () => {
@@ -60,6 +63,9 @@ const YourScreen = () => {
         style={{ paddingTop: 0 }} 
       >
         <Cart/>
+        <Mostpopular/>
+        <NewItems/>
+        <AllItems/>
       </ScrollView>
     </SafeAreaView>
   );

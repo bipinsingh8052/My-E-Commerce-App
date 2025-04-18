@@ -14,8 +14,8 @@ export default function _layout() {
           <FontAwesome size={28} color="black" name='opencart'/>
         )}}} />
         <Tabs.Screen name='index' options={{title:"Home" ,headerShown:false,tabBarIcon:()=>{return(
-          <View style={{height:60, width:60, borderRadius:50, bottom:20, backgroundColor:"white", borderWidth:0.5, justifyContent:'center', alignItems:"center", borderColor:"red"}}>
-            <Text><AntDesign size={28} color="black" name='home' />
+          <View style={{height:60, width:60, borderRadius:50, bottom:20, backgroundColor:"blue", borderWidth:0.5,  justifyContent:'center', alignItems:"center", borderColor:"transparent"}}>
+            <Text><AntDesign size={30} color="white" name='home' />
             </Text> 
             </View>
         )}}} />

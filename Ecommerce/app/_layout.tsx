@@ -9,5 +9,6 @@ export default function RootLayout() {
     <Stack.Screen name="forGetPass"  options={{ headerShown: false}} />
     <Stack.Screen name="forGetPassEmail"  options={{ headerShown: false}} />
     <Stack.Screen name="(tabs)"  options={{ headerShown: false}} />
+    <Stack.Screen name="Product_Detail"  options={{ headerShown: false}} />
   </Stack>
 }

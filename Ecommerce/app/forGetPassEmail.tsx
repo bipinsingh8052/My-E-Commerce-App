@@ -24,8 +24,32 @@ export default function forGetPassEmail() {
  
        </View>
        <View style={{ justifyContent:"center", alignItems:"center", width:"100%", marginTop:30, gap:20, padding:20}}>
-           <TextInput placeholder='Enter Your Email Id' style={{paddingLeft:20, width:"100%", fontSize: 16, borderRadius:20, backgroundColor:"white"}} keyboardType="email-address"/>
-           <TextInput placeholder='Enter Your Number' style={{ paddingLeft:20,fontSize: 16, width:"100%", borderRadius:20, backgroundColor:"white"}} keyboardType="phone-pad" />
+           <TextInput placeholder='Enter Your Email Id'  style={{
+               borderWidth: 1,
+               borderColor: '#999',
+               borderRadius: 6,
+               width:"80%",
+               paddingHorizontal: 12,
+               paddingVertical: 10,
+               marginTop: 24,
+               fontSize: 16,
+               color: '#000',backgroundColor:"lightgray"
+          }}
+          placeholderTextColor="#666"
+          secureTextEntry keyboardType="email-address"/>
+           <TextInput placeholder='Enter Your Number' style={{
+            borderWidth: 1,
+            borderColor: '#999',
+            borderRadius: 6,
+            width:"80%",
+            paddingHorizontal: 12,
+            paddingVertical: 10,
+            marginTop: 24,
+            fontSize: 16,
+            color: '#000',backgroundColor:"lightgray"
+          }}
+          placeholderTextColor="#666"
+          secureTextEntry keyboardType="phone-pad" />
          </View>
       
        <View style={{width:"100%", gap:20, padding:20, marginTop:120,  }}>

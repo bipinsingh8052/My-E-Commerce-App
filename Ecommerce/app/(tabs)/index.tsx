@@ -6,6 +6,9 @@ import Categories from '../(components)/Categories'
 import TopProduct from '../(components)/TopProducts'
 import FlashSale from '../(components)/FlashSale'
 import NewItems from '../(components)/NewItems'
+import Mostpopular from '../(components)/MostPopular'
+import JustForYou from '../(components)/JustForYou'
+import AllItems from '../(components)/AllItems'
 
 
 
@@ -21,6 +24,9 @@ export default function index() {
         
         <FlashSale/>
         <NewItems/>
+        <Mostpopular/>
+        <JustForYou/>
+        <AllItems/>
 
       </ScrollView>
     </SafeAreaView>
