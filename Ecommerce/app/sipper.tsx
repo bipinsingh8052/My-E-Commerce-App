@@ -19,10 +19,9 @@ const Sipper = () => {
   }
 
   const images = [
-    'https://dm0qx8t0i9gc9.cloudfront.net/watermarks/image/rDtN98Qoishumwih/graphicstock-happy-young-woman-holding-many-shopping-bags-on-a-yellow-background_Hw-xl8rnVuW_SB_PM.jpg',
-   
-    'https://plus.unsplash.com/premium_photo-1683147655175-3677d43108a1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmclMjBnaXJsfGVufDB8fDB8fHww',
-    'https://assets.ajio.com/medias/sys_master/root/20231016/L6FL/652c5051afa4cf41f5466bdf/-473Wx593H-466711316-blue-MODEL.jpg',
+    'https://img.freepik.com/free-photo/full-length-portrait-smiling-family_171337-2279.jpg?semt=ais_hybrid&w=740',
+      'https://us.123rf.com/450wm/espies/espies2011/espies201100220/158560376-happy-indian-family-festival-shopping-concept-holding-paper-bags-and-showing-debit-or-credit-card.jpg?ver=6',
+       'https://assets.ajio.com/medias/sys_master/root/20231016/L6FL/652c5051afa4cf41f5466bdf/-473Wx593H-466711316-blue-MODEL.jpg',
   ];
 
   return (
@@ -70,11 +69,11 @@ const styles = StyleSheet.create({
     
   },
   image: {
-    width: 300,
-    height: 700,
-    marginTop:20,
+    width: "100%",
+    height: "100%",
+    marginTop:0,
     alignSelf:"center",
-   borderRadius:20
+   borderRadius:0
     
   },
 });

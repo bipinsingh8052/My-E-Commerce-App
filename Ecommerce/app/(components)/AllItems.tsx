@@ -1,11 +1,31 @@
 import { AntDesign } from '@expo/vector-icons';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
-
+import { FlatList } from 'react-native';
+import Loader from './Loader'
 export default function AllItems() {
-  // const handleItemPress = (index) => {
-  //   Alert.alert(`Item ${index + 1} selected!`);
-  // };
+  let[loader,setloader]=useState(false)
+   let[data,setdata]=useState([]);
+  
+  
+    let loading=async()=>{
+      setloader(true)
+      let api="https://nexx-js-e-commerce-app-491i.vercel.app/api/product";
+      try {
+        let response= await axios.get(api)
+        // console.log(response.data[0])
+              setloader(false)
+
+        setdata(response.data);
+      } catch (error) {
+        console.log(error)
+        setloader(true)
+        
+      }
+    }
+  
+    useEffect(()=>{loading()},[])
 
   return (
     <View style={{ marginTop: 0, marginLeft: 10, marginRight: 10 }}>
@@ -19,38 +39,43 @@ export default function AllItems() {
       </View>
       <ScrollView>
         <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", alignItems: "center" }}>
-          {
-            [1, 2, 3, 4, 5, 6, 7, 8,7,8,8,8,8,8].map((e, index) => {
-              return (
+         {
+          loader? <View style={{height:60, width:"100%"}}>
+            <Loader  loading={loader}/>
+          </View>:
+          
+          <FlatList
+              data={data}
+              horizontal
+              renderItem={({item}) => 
                 <TouchableOpacity 
-                  key={index} 
-                  // onPress={() => handleItemPress(index)} 
-                  style={{
-                    height: 250,
-                    width: 150,
-                    borderWidth: 0.1,
-                    alignItems: "center",
-                    borderRadius: 5,
-                    overflow: "hidden",
-                    backgroundColor: '#fff',
-                    elevation: 2,
-                    margin: 5,
-                  }}
-                >
-                  <View style={{ height: 200, width: 150, paddingLeft: 5, paddingTop: 5 }}>
-                    <Image 
-                      source={{ uri: "https://www.thesun.co.uk/wp-content/uploads/2021/12/MT-SHOPPING-OFF-PLATT.jpg?strip=all&quality=100&w=1200&h=800&crop=1" }} 
-                      style={{ height: "96%", width: "96%", borderRadius: 5 }} 
-                    />
-                  </View>
-                  <Text style={{ height: 60, padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
-                    Item Description Here
-                  </Text>
-                  <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}>$17.00</Text>
-                </TouchableOpacity>
-              );
-            })
-          }
+              // onPress={() => handleItemPress(index)} 
+              style={{
+                height: 250,
+                width: 150,
+                borderWidth: 0.1,
+                alignItems: "center",
+                borderRadius: 5,
+                overflow: "hidden",
+                backgroundColor: '#fff',
+                elevation: 2,
+                margin: 5,
+              }}
+            >
+              <View style={{ height: 200, width: 150, paddingLeft: 5, paddingTop: 5 }}>
+                <Image 
+                  source={{ uri: item.mainImage }} 
+                  style={{ height: "96%", width: "96%", borderRadius: 5 }} 
+                />
+              </View>
+              <Text style={{ height: 60, padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
+              {item.brand}   {item.name}
+              </Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}>$17.00</Text>
+            </TouchableOpacity>
+              }
+        />
+         }
         </View>
       </ScrollView>
     </View>

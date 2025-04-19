@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { ScrollView, View ,Text} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, View ,Text, Alert} from 'react-native'
 import { AntDesign, FontAwesome } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
 import Mostpopular from './(components)/MostPopular';
@@ -7,25 +7,78 @@ import JustForYou from './(components)/JustForYou';
 import {  Dimensions, StyleSheet, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Reviews from './(components)/Product_Details_All/Review';
+import { useLocalSearchParams } from 'expo-router';
+import axios from 'axios';
+import { useSearchParams } from 'expo-router/build/hooks';
+import { Share } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-const images = [
-  { id: 1, url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg' },
-  { id: 2, url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg' },
-  { id: 3, url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg' },
-];
+// const images = [
+//   { id: 1, url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg' },
+//   { id: 2, url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg' },
+//   { id: 3, url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg' },
+// ];
 export default function Product_Detail() {
+  
     let[Like,setLike] =useState(false);
     const [show, setShow] = useState(true);
+    // select the size of size in that 
     const [size, setSize] = useState(false);
     const [input, setInput] = useState(1);
+    // store all images in thiat useState
+    const[images,setImages]=useState([])
     const [selectedOption, setSelectedOption] = useState(null);
+    let[data,setData]=useState({})
+    let{id}=useLocalSearchParams();
+
+
+    // Share the code 
+    const onShare = async (id) => {
+      try {
+        const result = await Share.share({
+          message:
+            id
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error: any) {
+        Alert.alert(error.message);
+      }
+    };
+    // Share the code 
+   
+
+
+
+
+    const LoadingFunction =async()=>{
+      let api="";
+      try {
+        let response= await axios.get(api);
+        console.log(response.data);
+        // setData(response.data);
+      } catch (error) {
+        console.log("error");
+      }
+    }
+
+
+
     const deliveryOptions = [
       { id: 1, type: 'Standard', time: '5-7 days', price: '$3.00' },
       { id: 2, type: 'Express', time: '2-3 days', price: '$5.00' },
     ];
-  
+
+
+  // useEffect(()=>{LoadingFunction()},[])
   return (
     <View style={{flex:1}}>
     <View style={{position:"absolute", bottom:0, backgroundColor:"lightgray", width:"100%", zIndex:3, height:80 ,alignSelf:'flex-end', flexDirection:"row", justifyContent:"space-around",alignItems:"center"}}>
@@ -65,7 +118,7 @@ export default function Product_Detail() {
     <View>
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 10, paddingHorizontal: 25 }}>
         <Text style={{ fontFamily: "cursive", fontSize: 25, fontWeight: '800' }}>$ 17.00</Text>
-        <TouchableOpacity style={{ padding: 10, borderRadius: 50, backgroundColor: "lightgray" }}>
+        <TouchableOpacity style={{ padding: 10, borderRadius: 50, backgroundColor: "lightgray" }} onPress={()=>{onShare(id)}}>
           <FontAwesome name="share" size={20} color={"gray"} />
         </TouchableOpacity>
       </View>
