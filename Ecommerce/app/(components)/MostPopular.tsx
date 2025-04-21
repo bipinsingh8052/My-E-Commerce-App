@@ -55,24 +55,51 @@ export default function Mostpopular() {
         </View>:
           <FlatList
           horizontal
-         data={data}
-         keyExtractor={(item) => item._id} // Adjust based on your data structure
-         renderItem={({item}) => 
-           <TouchableOpacity 
-            onPress={()=>{GotoProductPage(item._id)}}
-            style={{ height: 250, width: 200, borderWidth: 0.1, padding: 3, marginHorizontal: 10, borderRadius: 5, overflow: "hidden", backgroundColor: '#fff', elevation: 2 }}>
-         <View style={{ height: 200, width: 195 }}>
-           <Image source={{ uri:item.mainImage  }} style={{ height: "100%", width: "100%", borderRadius: 5 }} />
-         </View>
-         <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10, paddingTop: 5 }}>
-           <Text style={{ textAlign: "center", fontSize: 20, fontWeight: 'bold' }}>
-             {item.brand}<AntDesign name='heart' size={20} color={"blue"} />
-           </Text>
-           <Text style={{ fontSize: 17, fontWeight: '200', marginRight: 10 }}>New</Text>
-         </View>
-       </TouchableOpacity>
-         }
-       />
+          data={data} // Use the original data
+          keyExtractor={(item) => item._id} // Adjust based on your data structure
+          renderItem={({ item }) => {
+            // Inline transformation of galleryImages
+            const galleryImages = item.mainImage.includes('.svg') 
+            ? item.mainImage.replace('/upload/', '/upload/f_png/') 
+            : item.mainImage;
+  
+            return (
+              <TouchableOpacity
+                onPress={() => { GotoProductPage(item._id) }}
+                style={{
+                  height: 250,
+                  width: 200,
+                  borderWidth: 0.1,
+                  padding: 3,
+                  marginHorizontal: 10,
+                  borderRadius: 5,
+                  overflow: "hidden",
+                  backgroundColor: '#fff',
+                  elevation: 2,
+                }}>
+                <View style={{ height: 200, width: 195 }}>
+                  <Image
+                    source={{ uri:galleryImages|| null }}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      borderRadius: 5,
+                    }}
+                    onError={() => <View>
+                      <Loader loading={true} />
+                      </View>}
+                  />
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10, paddingTop: 5 }}>
+                  <Text style={{ textAlign: "center", fontSize: 20, fontWeight: 'bold' }}>
+                    {item.brand}<AntDesign name='heart' size={20} color={"blue"} />
+                  </Text>
+                  <Text style={{ fontSize: 17, fontWeight: '200', marginRight: 10 }}>New</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
         }
      
       {/* </ScrollView> */}

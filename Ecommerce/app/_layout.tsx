@@ -1,7 +1,15 @@
 import { Stack } from "expo-router";
+import { SafeAreaView } from "react-native";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+// import { store } from "./redux/store";
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
 
 export default function RootLayout() {
-  return <Stack >
+  return( <Provider store={store}>
+    <SafeAreaView style={{flex:1}}>
+      <Stack >
     <Stack.Screen name="index" options={{ headerShown: false}} />
     <Stack.Screen name="login"  options={{ headerShown: false}} />
     <Stack.Screen name="sipper"  options={{ headerShown: false}} />
@@ -11,4 +19,7 @@ export default function RootLayout() {
     <Stack.Screen name="(tabs)"  options={{ headerShown: false}} />
     <Stack.Screen name="Product_Detail"  options={{ headerShown: false}} />
   </Stack>
+  </SafeAreaView>
+  </Provider>)
+  
 }

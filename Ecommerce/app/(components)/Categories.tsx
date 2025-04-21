@@ -36,7 +36,7 @@ export default function Categories() {
   };
 
   const gotoNext = (id) => {
-    // console.log(id);
+    console.log(id);
     route.push(`/Product_Detail?id=${id}`);
   };
   useEffect(() => {
