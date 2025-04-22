@@ -13,9 +13,10 @@ import { useSearchParams } from 'expo-router/build/hooks';
 import { Share } from 'react-native';
 import Loader from './(components)/Loader'
 import { useDispatch } from 'react-redux';
-import { addtocart } from './redux/slice/cart';
+import { addToCart } from './redux/slice/cart';
+import { AppDispatch } from './redux/store';
 const { width } = Dimensions.get('window');
-
+import Toast from 'react-native-toast-message';
 
 
 
@@ -47,7 +48,7 @@ export default function Product_Detail() {
 
 
     // dispatvh
-    let dispatch =useDispatch();
+    let dispatch: AppDispatch=useDispatch();
 
     // Share the code 
     const onShare = async (k) => {
@@ -107,10 +108,20 @@ export default function Product_Detail() {
       { id: 1, type: 'Standard', time: '5-7 days', price: '$3.00' },
       { id: 2, type: 'Express', time: '2-3 days', price: '$5.00' },
     ];
-
+    const showNotice=()=>{
+      Toast.show({
+                     type: 'success', // 'success', 'error', 'info'
+                     text1: "You can add this cart in your bag",
+                    //  text2: "Successfully ", // Optional
+                     position: 'top', // 'top', 'bottom', 'center'
+                     visibilityTime: 4000, // Duration in milliseconds
+                     autoHide: true, // Automatically hide after visibilityTime
+                   });
+    }
 
   useEffect(()=>{LoadingFunction()},[])
   return (
+    <>
     <View style={{flex:1}}>
     {
       load ?
@@ -125,8 +136,8 @@ export default function Product_Detail() {
               <AntDesign name='hearto' size={25} color={"red"}/>
           }
       </Text>
-      <TouchableOpacity>
-      <Text style={{paddingHorizontal:20, paddingVertical:10, backgroundColor:"black" ,color:"white", marginBottom:0, borderRadius:10}} onPress={()=>{dispatch(addtocart(id))}}>
+      <TouchableOpacity onPress={()=>{dispatch(addToCart({id:id,productname:data.description,size:"na",price:data.price,image:data.mainImage,qty:input})),showNotice()}}>
+            <Text style={{paddingHorizontal:20, paddingVertical:10, backgroundColor:"black" ,color:"white", marginBottom:0, borderRadius:10}} >
           Add to Cart
       </Text>
       </TouchableOpacity>
@@ -446,6 +457,8 @@ export default function Product_Detail() {
 
     }
 </View>
+
+<Toast/></>
   )
 }
 

@@ -2,20 +2,35 @@
 // import Cart from '../components/AddtoCart/Cart'
 // import Mostpopular from '../components/Mostpopular'
 // import AllItems from '../components/AllItems'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import Cart from '../(components)/AddtoCart/Cart';
 import Mostpopular from '../(components)/MostPopular';
 import NewItems from '../(components)/NewItems';
 import AllItems from '../(components)/AllItems';
+import { useSelector } from 'react-redux';
 
 
 const YourScreen = () => {
+  const value=useSelector(state=>state.cart.items);
+    console.log(value,"cart page")
   let router=useRouter()
   let gotopayment=()=>{
     router.push("/(components)/AddtoCart/PaymentOption")
   }
+  const totals = value.reduce(
+    (accumulator, e) => {
+      accumulator.total += e.price * e.qty; // Sum total price
+      accumulator.quantity += e.qty; // Sum total quantity
+      return accumulator; // Return the accumulator for the next iteration
+    },
+    { total: 0, quantity: 0 } // Initial value for the accumulator
+  );
+
+//   console.log(`Total Price: $${totals.total}`); // Output: Total Price: $85
+// console.log(`Total Quantity: ${totals.quantity}`);
+  // useEffect(()=>{loading()},[])
   return (
     <SafeAreaView style={{ flex: 1 }}>
       
@@ -41,7 +56,7 @@ const YourScreen = () => {
           alignItems: "center",
           paddingHorizontal: 20
         }}>
-          <Text style={{ fontSize: 20, fontWeight: '800' }}>Total $43.00</Text>
+          <Text style={{ fontSize: 20, fontWeight: '800' }}>Total $ {totals.total}</Text>
           <TouchableOpacity style={{
             backgroundColor: "blue",
             paddingHorizontal: 10,

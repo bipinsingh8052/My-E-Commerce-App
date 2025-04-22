@@ -1,12 +1,46 @@
+import { qntyDecrease, qntyIncrease, removeFromCart } from "@/app/redux/slice/cart";
+import { AppDispatch } from "@/app/redux/store";
 import { AntDesign, EvilIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Image, Modal, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
-import Mostpopular from "../Mostpopular";
-import AllItems from "../AllItems";
+import { useDispatch, useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
 export default function Cart() {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const [loadering,setloadering]=useState(false)
+
+  
+  let val=useSelector(state=>state.cart.items)
+  // console.log(val,   "tihs is all cart","valeus thsi is radd to cart")
+  
+      let dispatch: AppDispatch=useDispatch();
+
+
+
+// show toaster 
+const showNotice=()=>{
+  Toast.show({
+                     type: 'success', // 'success', 'error', 'info'
+                     text1: "You can remove this cart in your bag",
+                    //  text2: "Successfully ", // Optional
+                     position: 'top', // 'top', 'bottom', 'center'
+                     visibilityTime: 4000, // Duration in milliseconds
+                     autoHide: true, // Automatically hide after visibilityTime
+                   });
+                   setloadering(true)
+}
+// show toaster 
+
+
+  useEffect(()=>{
+    if(loadering){
+
+      setloadering(false)
+    }
+  },[loadering])
 
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const radioButtons: RadioButtonProps[] = useMemo(() => ([
@@ -72,7 +106,7 @@ export default function Cart() {
     <View style={{paddingHorizontal:20}}>
       <View  style={{flexDirection:"row", alignItems:"center", gap:10, marginTop:20}}>
         <Text style={{fontSize:30, fontWeight:700}}>Cart</Text>
-        <Text style={{paddingVertical:5, backgroundColor:"lightgray", borderRadius:100, textAlign:"center", paddingHorizontal:10, fontSize:18, fontWeight:700}}>2</Text>
+        <Text style={{paddingVertical:5, backgroundColor:"lightgray", borderRadius:100, textAlign:"center", paddingHorizontal:10, fontSize:18, fontWeight:700}}>{val.length}</Text>
       </View>
       <View style={{flexDirection:"row", width:"100%", marginTop:10,padding:10, backgroundColor:"#D3D3D3", borderRadius:10, alignItems:"flex-end", justifyContent:"space-around"}}>
         <View style={{width:"80%"}}> 
@@ -91,31 +125,38 @@ export default function Cart() {
         {/* <ScrollView  showsVerticalScrollIndicator={false}> */}
           
          {
-          [1,2].map((e,index)=>{return(
+          val.map((e,index)=>
+            { 
+
+
+            const galleryImages = e.image.includes('.svg') 
+            ? e.image.replace('/upload/', '/upload/f_png/') 
+            : e.image;
+            return(
             <View key={index} style={{flexDirection:"row", height:120, width:"100%", marginTop:10, gap:15}}>
             <View style={{borderRadius:5, borderWidth:1, borderColor:"gray", padding:5}}>
-              <Image source={{uri:"https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"}} style={{height:108, width:108, borderRadius:5}} />
-              <TouchableOpacity style={{position:"absolute", bottom:5, left:10, paddingHorizontal:10, paddingVertical:10, backgroundColor:"white", borderRadius:50}}> 
+              <Image source={{uri:galleryImages}} style={{height:108, width:108, borderRadius:5}} />
+              <TouchableOpacity style={{position:"absolute", bottom:5, left:10, paddingHorizontal:10, paddingVertical:10, backgroundColor:"white", borderRadius:50}} onPress={()=>{dispatch(removeFromCart(e.id)),showNotice()}}> 
                 <AntDesign name="delete" size={20} color={"blue"}/>
               </TouchableOpacity>
             </View>
             <View style={{width:"60%", justifyContent:"space-between", paddingBottom:3}}>
              
                 <Text style={{fontSize:13, fontWeight:599}}>
-                  Lorwm vcejcb abekjhf  abajc ajh afajfhi bipi  abheb
+                  {e.productname}
                 </Text>
               <Text style={{fontSize:15,  fontWeight:699}}>
-                Pinnk , Size M
+                Pinnk , Size {e.size}
               </Text>
               <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", gap:20}}>
-                <Text style={{fontWeight:900, fontSize:17}}>$ 12,00</Text>
+                <Text style={{fontWeight:900, fontSize:17}}>$ {e.price}</Text>
                 <View style={{flexDirection:"row", gap:5, alignItems:"center"}}>
-                  <TouchableOpacity style={{paddingHorizontal:12, paddingVertical:0, borderWidth:1, borderColor:"blue", borderRadius:50}}>
+                  <TouchableOpacity style={{paddingHorizontal:12, paddingVertical:0, borderWidth:1, borderColor:"blue", borderRadius:50}} onPress={()=>{dispatch(qntyDecrease({id:e.id}))}}>
                     <Text style={{fontSize:25 ,color:"blue"}}>-</Text>
                   </TouchableOpacity>
-                  <Text style={{paddingHorizontal:10, paddingVertical:6,textAlign:"center",borderRadius:2, backgroundColor:"#87CEFA", fontWeight:800}}>0
+                  <Text style={{paddingHorizontal:10, paddingVertical:6,textAlign:"center",borderRadius:2, backgroundColor:"#87CEFA", fontWeight:800}}>{e.qty}
                   </Text>
-                  <TouchableOpacity  style={{paddingHorizontal:12, paddingVertical:0, borderWidth:1, borderColor:"blue", borderRadius:50}}>
+                  <TouchableOpacity  style={{paddingHorizontal:12, paddingVertical:0, borderWidth:1, borderColor:"blue", borderRadius:50}} onPress={()=>{dispatch(qntyIncrease({id:e.id}))}}>
                     <Text style={{fontSize:25 ,color:"blue"}}>+</Text>
                   </TouchableOpacity>
                 </View>
@@ -144,7 +185,7 @@ export default function Cart() {
       <AllItems/> */}
     
     </View>
-  
+  <Toast/>
     </>
   );
 }
