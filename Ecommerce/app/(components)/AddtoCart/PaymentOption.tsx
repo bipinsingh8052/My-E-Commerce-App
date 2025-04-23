@@ -18,6 +18,16 @@ export default function PaymentOption() {
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibletwo, setModalVisibletwo] = useState(false);
+  const[input,setinput]=useState({
+    name:"",
+    mobileNo:"",
+    NoAnother:"",
+    addressOption:"",
+    cityname:"",
+    HouseNo:"",
+    addressNo:"",
+    PinCode:"",
+  })
 
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [selectedPaymentId, setSelectedPaymentId] = useState<string | undefined>();
@@ -51,6 +61,15 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
       days:"3-5"
   }
 ]), []);
+
+
+
+
+// handle input 
+const handleInput=()=>{
+  console.log(input);
+}
+// handle input 
   return(
     <SafeAreaView>
   
@@ -70,18 +89,22 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
                 </View>
                 <View style={{paddingHorizontal:20,  gap:10}}>
                   <Text style={{fontSize:16, fontWeight:600}}>Enter the City Name:</Text>
-                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="Enter the City name" />
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="Enter the City name" onChangeText={(e)=>{setinput(pre=>({...pre,cityname:e}))}} />
                 </View>
                 <View style={{paddingHorizontal:20,  gap:10}}>
                   <Text style={{fontSize:16, fontWeight:600}}>Enter the House No:</Text>
-                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " keyboardType="default"  onChangeText={(e)=>{setinput(pre=>({...pre,HouseNo:e}))}} />
                 </View>
                 <View style={{paddingHorizontal:20,  gap:10}}>
                   <Text style={{fontSize:16, fontWeight:600}}>Enter the Address No:</Text>
-                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 "  keyboardType="default"  onChangeText={(e)=>{setinput(pre=>({...pre,addressNo:e}))}}/>
+                </View>
+                <View style={{paddingHorizontal:20,  gap:10}}>
+                  <Text style={{fontSize:16, fontWeight:600}}>Enter the PinCode No:</Text>
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="Enter the City name" keyboardType="numeric"  onChangeText={(e)=>{setinput(pre=>({...pre,PinCode:e}))}} />
                 </View>
                 <View style={{paddingHorizontal:20, marginBottom:10}}>
-            <TouchableOpacity style={{justifyContent:"center", alignItems:"center", backgroundColor:"blue", paddingVertical:10, borderRadius:20, margin:0}} onPress={()=>{setModalVisible(false)}}>
+            <TouchableOpacity style={{justifyContent:"center", alignItems:"center", backgroundColor:"blue", paddingVertical:10, borderRadius:20, margin:0}} onPress={()=>{setModalVisible(false),handleInput()}}>
                   <Text style={{color:"white", fontSize:15, fontWeight:700}} >Submit your Address</Text>
                 </TouchableOpacity>
             </View>
@@ -100,18 +123,21 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
           >
             <View style={{position:"absolute", top:0, flex:1, backgroundColor:"f4f4f4", width:"100%", height:"100%", alignItems:"center", justifyContent:"center" }}>
               <View style={{height:"auto", width:"80%", backgroundColor:"white", borderRadius:10, gap:20, borderWidth:0.5, borderColor:"transparent"}}>
-
+              <View style={{paddingHorizontal:20,  gap:10}}>
+                  <Text style={{fontSize:16, fontWeight:600}}>Enter the Name:</Text>
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="Enter the  name" keyboardType="default"  onChangeText={(e)=>{setinput(pre=>({...pre,name:e}))}} />
+                </View>
                 <View style={{paddingHorizontal:20,  gap:10}}>
                   <Text style={{fontSize:16, fontWeight:600}}>Enter the Mobile No:</Text>
-                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="Enter the City name" />
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="Enter the Mobile no" keyboardType="phone-pad"  onChangeText={(e)=>{setinput(pre=>({...pre,mobileNo:e}))}} />
                 </View>
                 <View style={{paddingHorizontal:20,  gap:10}}>
                   <Text style={{fontSize:16, fontWeight:600}}>Enter the Another No:</Text>
-                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " keyboardType="phone-pad"   onChangeText={(e)=>{setinput(pre=>({...pre,NoAnother:e}))}} />
                 </View>
                
                 <View style={{paddingHorizontal:20, marginBottom:10}}>
-            <TouchableOpacity style={{justifyContent:"center", alignItems:"center", backgroundColor:"blue", paddingVertical:10, borderRadius:20, margin:0}} onPress={()=>{setModalVisible(false)}}>
+            <TouchableOpacity style={{justifyContent:"center", alignItems:"center", backgroundColor:"blue", paddingVertical:10, borderRadius:20, margin:0}} onPress={()=>{setModalVisibletwo(false),handleInput()}}>
                   <Text style={{color:"white", fontSize:15, fontWeight:700}} >Submit Contact Details </Text>
                 </TouchableOpacity>
             </View>
@@ -166,7 +192,7 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
           </Text>
         </View>
         <View >
-          <TouchableOpacity style={{paddingHorizontal:8, paddingVertical:10, backgroundColor:"blue", borderRadius:50, textAlign:"center" }} onPress={()=>{setModalVisible(true)}}><EvilIcons name="pencil" size={22} color={"white"}/></TouchableOpacity>
+          <TouchableOpacity style={{paddingHorizontal:8, paddingVertical:10, backgroundColor:"blue", borderRadius:50, textAlign:"center" }} onPress={()=>{setModalVisibletwo(true)}}><EvilIcons name="pencil" size={22} color={"white"}/></TouchableOpacity>
         </View>
       </View>
 
