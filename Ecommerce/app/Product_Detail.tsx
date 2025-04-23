@@ -82,7 +82,7 @@ export default function Product_Detail() {
       try {
         //  console.log(`Fetching product with ID: ${id}`);
         let response= await axios.get(`${api}/${id}`);
-        // console.log(response.data);
+        // console.log(response.data,"datat");
         setData(response.data);
         // store images
         const galleryImages = (response.data.galleryImages || []).map((imgUrl) =>
@@ -136,7 +136,7 @@ export default function Product_Detail() {
               <AntDesign name='hearto' size={25} color={"red"}/>
           }
       </Text>
-      <TouchableOpacity onPress={()=>{dispatch(addToCart({id:id,productname:data.description,size:"na",price:data.price,image:data.mainImage,qty:input})),showNotice()}}>
+      <TouchableOpacity onPress={()=>{dispatch(addToCart({id:id,productname:data.name,size:"na",price:data.price,image:data.mainImage,qty:input})),showNotice()}}>
             <Text style={{paddingHorizontal:20, paddingVertical:10, backgroundColor:"black" ,color:"white", marginBottom:0, borderRadius:10}} >
           Add to Cart
       </Text>
@@ -172,7 +172,10 @@ export default function Product_Detail() {
       </TouchableOpacity>
     </View>
     <View style={{ paddingHorizontal: 30, marginTop: 30 }}>
-      <Text style={{ fontSize: 17, fontWeight: '400' }}>
+      <Text style={{ fontSize: 17, fontWeight: '800' }}>
+      {data.name}
+      </Text>
+      <Text style={{ fontSize: 17, fontWeight: '400',  marginTop:5}}>
       {data.description}
       </Text>
     </View>

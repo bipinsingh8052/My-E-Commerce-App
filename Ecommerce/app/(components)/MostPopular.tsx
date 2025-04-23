@@ -15,7 +15,7 @@ export default function Mostpopular() {
     let api="https://nexx-js-e-commerce-app-491i.vercel.app/api/product";
     try {
       let response= await axios.get(api)
-      console.log(response.data[0])
+      // console.log(response.data[0])
       setdata(response.data);
       setload(false)
     } catch (error) {

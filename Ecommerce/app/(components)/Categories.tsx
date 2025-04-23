@@ -37,7 +37,8 @@ export default function Categories() {
 
   const gotoNext = (id) => {
     console.log(id);
-    route.push(`/Product_Detail?id=${id}`);
+    // route.push(`/Product_Detail?id=${id}`);
+    route.push(`/categories_All?id=${id}`);
   };
   useEffect(() => {
     loading();

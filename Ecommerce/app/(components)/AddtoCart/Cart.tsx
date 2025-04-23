@@ -14,7 +14,7 @@ export default function Cart() {
 
   
   let val=useSelector(state=>state.cart.items)
-  // console.log(val,   "tihs is all cart","valeus thsi is radd to cart")
+  console.log(val,   "tihs is all cart","valeus thsi is radd to cart")
   
       let dispatch: AppDispatch=useDispatch();
 

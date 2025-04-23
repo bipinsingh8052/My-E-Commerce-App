@@ -3,8 +3,21 @@ import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { Image, Modal, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
+import { useSelector } from "react-redux";
 export default function PaymentOption() {
+  // redux  value
+  const value =useSelector(state=>state.cart.items);
+  // console.log(value,"payment console")
+  const totals = value.reduce(
+    (accumulator, e) => {
+      accumulator.total += e.price * e.qty; // Sum total price
+      accumulator.quantity += e.qty; // Sum total quantity
+      return accumulator; // Return the accumulator for the next iteration
+    },
+    { total: 0, quantity: 0 } // Initial value for the accumulator
+  );
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibletwo, setModalVisibletwo] = useState(false);
 
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [selectedPaymentId, setSelectedPaymentId] = useState<string | undefined>();
@@ -64,7 +77,7 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
                   <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
                 </View>
                 <View style={{paddingHorizontal:20,  gap:10}}>
-                  <Text style={{fontSize:16, fontWeight:600}}>Enter the House No:</Text>
+                  <Text style={{fontSize:16, fontWeight:600}}>Enter the Address No:</Text>
                   <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
                 </View>
                 <View style={{paddingHorizontal:20, marginBottom:10}}>
@@ -79,10 +92,49 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
             </View>
 
           </Modal>
+
+          <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisibletwo}
+          >
+            <View style={{position:"absolute", top:0, flex:1, backgroundColor:"f4f4f4", width:"100%", height:"100%", alignItems:"center", justifyContent:"center" }}>
+              <View style={{height:"auto", width:"80%", backgroundColor:"white", borderRadius:10, gap:20, borderWidth:0.5, borderColor:"transparent"}}>
+
+                <View style={{paddingHorizontal:20,  gap:10}}>
+                  <Text style={{fontSize:16, fontWeight:600}}>Enter the Mobile No:</Text>
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="Enter the City name" />
+                </View>
+                <View style={{paddingHorizontal:20,  gap:10}}>
+                  <Text style={{fontSize:16, fontWeight:600}}>Enter the Another No:</Text>
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
+                </View>
+               
+                <View style={{paddingHorizontal:20, marginBottom:10}}>
+            <TouchableOpacity style={{justifyContent:"center", alignItems:"center", backgroundColor:"blue", paddingVertical:10, borderRadius:20, margin:0}} onPress={()=>{setModalVisible(false)}}>
+                  <Text style={{color:"white", fontSize:15, fontWeight:700}} >Submit Contact Details </Text>
+                </TouchableOpacity>
+            </View>
+                
+              </View>
+            
+
+            </View>
+
+          </Modal>
           
 
           <ScrollView showsVerticalScrollIndicator={false}>
-
+          <View style={{position:"absolute", bottom:0, zIndex:8, backgroundColor:"white", width:"100%"}}>
+        <View style={{ height:60,flexDirection:"row", justifyContent
+          :"space-between", alignItems:"center", paddingHorizontal:20
+        }}>
+          <Text style={{fontSize:20, fontWeight:800}}>Total $ {totals.total}</Text>
+          <TouchableOpacity style={{backgroundColor:"black", paddingHorizontal:30, paddingVertical:5, borderRadius:10}}>
+            <Text style={{color:"white", fontWeight:500, fontSize:14}}>Pay</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
     <View style={{paddingHorizontal:20}}>
       <View  style={{flexDirection:"row", alignItems:"center", gap:10, marginTop:20}}>
@@ -125,7 +177,7 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
         <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
           <View style={{flexDirection:"row", alignItems:"center", gap:10 }}>
             <Text style={{fontSize:24, fontWeight:800}}>Items</Text>
-            <Text style={{paddingHorizontal:10, paddingVertical:5, backgroundColor:"#87CEFA", borderRadius:50, fontSize:12, fontWeight:900}}>2</Text>
+            <Text style={{paddingHorizontal:10, paddingVertical:5, backgroundColor:"#87CEFA", borderRadius:50, fontSize:12, fontWeight:900}}>{value.length}</Text>
           </View>
           <TouchableOpacity style={{borderWidth:1, borderColor:"blue", paddingHorizontal:10, paddingVertical:5, borderRadius:10}}>
             <Text style={{color:"blue"}}>Add Voucher</Text>
@@ -135,18 +187,23 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
 
       <ScrollView>
         {
-        [1,2,3].map((e,index)=>{return(
+        value.map((e,index)=>{
+          const galleryImages = e.image.includes('.svg') 
+          ? e.image.replace('/upload/', '/upload/f_png/') 
+          : e.image;
+          return(
           <View key={index} style={{height:70, width:"100%", flexDirection:"row", gap:10, alignItems:"center", marginTop:20}}>
-          <View style={{height:"100%", width:"20%", padding:5, backgroundColor:"#87CEFA", borderRadius:50}}>
-            <Image  source={{uri:"https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"}} style={{height:"100%", width:"100%", borderRadius:50}} />
-            <Text style={{position:"absolute", backgroundColor:"#87CEFA", borderRadius:50, right:-5, paddingHorizontal:8, paddingVertical:3, fontWeight:800, textAlign:"center", fontSize:18}}> 1</Text>
+          <View style={{height:"90%", width:"20%", padding:5, backgroundColor:"#87CEFA", borderRadius:50}}>
+            <Image  source={{uri:galleryImages}} style={{height:"100%", width:"100%", borderRadius:50}} />
+            <Text style={{position:"absolute", backgroundColor:"#87CEFA", borderRadius:50, right:-5, paddingHorizontal:8, paddingVertical:3, fontWeight:800, textAlign:"center", fontSize:18}}> {e.qty}</Text>
           </View>
           <View style={{width:"50%", alignSelf:"flex-start", paddingTop:10}}>
-            <Text style={{fontSize:10, fontWeight:500,}}>Lorem bjhb jdj a hjdf jaffjf  afkjfj kjafjkfhf  jaffjhf hajfhfkjf </Text>
+            <Text style={{fontSize:10, fontWeight:500,}}>{e.productname}</Text>
+            <Text style={{fontSize:10, fontWeight:500,}}> size : {e.size}</Text>
           </View>
           <View style={{width:"30%"}}>
             <Text style={{fontSize:20, fontWeight:800}}>
-              $128,0
+              $ {e.price}
             </Text>
           </View>
         </View>
@@ -221,16 +278,7 @@ const Paymentbtn: RadioButtonProps[] = useMemo(() => ([
 {/* payment Method section */}
 
     {/*Price section is there */}
-    <View style={{position:"absolute", bottom:0, zIndex:8, backgroundColor:"white", width:"100%"}}>
-        <View style={{ height:60,flexDirection:"row", justifyContent
-          :"space-between", alignItems:"center", paddingHorizontal:20
-        }}>
-          <Text style={{fontSize:20, fontWeight:800}}>Total $ 43,00</Text>
-          <TouchableOpacity style={{backgroundColor:"black", paddingHorizontal:30, paddingVertical:5, borderRadius:10}}>
-            <Text style={{color:"white", fontWeight:500, fontSize:14}}>Pay</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+   
 
       </ScrollView>
     </SafeAreaView>
