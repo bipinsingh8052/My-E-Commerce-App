@@ -1,7 +1,35 @@
-import React from 'react';
-import { Image, Text, View, TouchableOpacity } from 'react-native';
-
+import React, { useEffect, useState } from 'react';
+import { Image, Text, View, TouchableOpacity, FlatList, ScrollView } from 'react-native';
+import Loader from './Loader'
+import axios from 'axios';
+import { useRouter } from 'expo-router';
 export default function ShopViewProject() {
+  let [data,setData]=useState([]);
+  let [load,setLoad]=useState(false)
+  let route =useRouter()
+  let Loading=async()=>{
+    setLoad(true)
+    let api = "https://nexx-js-e-commerce-app-491i.vercel.app/api/categories";
+    try {
+      let res=await axios.get(api)
+      // console.log(res.data,"cat");
+      setData(res.data)
+      setLoad(false)
+    } catch (error) {
+      setLoad(true)
+      
+    }
+  }
+
+
+
+  const gotoCategoriesDetail=(id)=>{
+    route.push(`/categories_All?id=${id}`);
+  }
+
+
+
+  useEffect(()=>{Loading()},[])
   return (
     <View style={{
       flexDirection: "row",
@@ -13,57 +41,69 @@ export default function ShopViewProject() {
       paddingHorizontal: 10,
     }}>
       {
-        [{ name: "Dresses" }, { name: "Pants" }, { name: "Skirts" }, { name: "Shorts" },
-        { name: "Jackets" }, { name: "Hoodies" }, { name: "Shirts" }, { name: "Plolo" },
-        { name: "T-Shirt" }, { name: "Tunics" }].map((e, index) => {
-          return (
-            <View key={index} style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-              <TouchableOpacity 
-                activeOpacity={0.7} 
-                style={{
-                  borderWidth: 1,
-                  borderColor: 'transparent',
-                  borderRadius: 50,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                
-                }}>
-                <View style={{
-                  overflow: 'hidden',
-                  borderRadius: 50,
-                  elevation: 5,
-                }}>
-                  <Image 
-                    source={{
-                      uri: "https://images.unsplash.com/photo-1593696954577-ab3d39317b97?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZyZWUlMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D"
-                    }} 
-                    style={{
-                      width: 60,
-                      height: 60,
-                      borderRadius: 50,
-                      borderWidth: 2,
-                      borderColor: '#fff',
-                    }} 
-                  />
-                </View>
-                <Text style={{
-                  fontSize: 14,
-                  textAlign: "center",
-                  fontWeight: '600',
-                  letterSpacing: 0.5,
-                
-                  color: "#34495e",
-                }}>
-                  {e.name}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          );
-        })
+        load?
+        <View style={{height:60, width:"100%"}}>
+        <Loader  loading={load}/>
+      </View>
+        :<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+     
+        { data.map((item,index)=>{
+           const truncatedString = item.name.length > 5 ? item.name.slice(0, 5) + '...' : item.name;
+           const galleryImages = item.imageUrl.includes('.svg') 
+            ? item.imageUrl.replace('/upload/', '/upload/f_png/') 
+            : item.imageUrl;
+          return(
+           <View key={index} style={{
+
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginLeft:5
+          }}>
+            <TouchableOpacity 
+              activeOpacity={0.7} 
+              style={{
+                borderWidth: 1,
+                borderColor: 'transparent',
+                borderRadius: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+              
+              }}  onPress={()=>{gotoCategoriesDetail(item._id)}}>
+              <View style={{
+                overflow: 'hidden',
+                borderRadius: 50,
+                elevation: 5,
+              }}>
+                <Image 
+                  source={{
+                    uri: galleryImages
+                  }} 
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 50,
+                    borderWidth: 2,
+                    borderColor: '#fff',
+                  }} 
+                />
+              </View>
+              <Text style={{
+                fontSize: 14,
+                textAlign: "center",
+                fontWeight: '600',
+                letterSpacing: 0.5,
+              
+                color: "#34495e",
+              }}>
+                {truncatedString}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )})
       }
+      </ScrollView>
+      }
+      
     </View>
   );
 }

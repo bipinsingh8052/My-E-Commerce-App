@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 
 const YourScreen = () => {
   const value=useSelector(state=>state.cart.items);
-    console.log(value,"cart page")
+    // console.log(value,"cart page")
   let router=useRouter()
   let gotopayment=()=>{
     router.push("/(components)/AddtoCart/PaymentOption")

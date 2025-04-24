@@ -1,8 +1,26 @@
 import { AntDesign, MaterialIcons } from '@expo/vector-icons'
-import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useRouter } from 'expo-router'
+import { jwtDecode } from 'jwt-decode'
+import React, { useEffect, useState } from 'react'
 import { View,Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 
 export default function Profile() {
+  let[accountdetails,setAccountDetail]=useState([])
+  let loading=async()=>{
+    let token=await AsyncStorage.getItem("token")
+    try {
+      const decoded = jwtDecode(token);
+      console.log(decoded)
+      setAccountDetail(decoded)
+    } catch (error) {
+     let route=useRouter()
+     route.push("/login") 
+    }
+  }
+  useEffect(()=>{
+    loading();
+  },[])
   return (
    <View>
     <View style={{height:80, flexDirection:"row", gap:20, justifyContent:"center", alignItems:"center"}}> 
@@ -26,7 +44,7 @@ export default function Profile() {
        </View>
     </View>
     <View style={{paddingLeft:20, marginTop:8}}>
-      <Text style={{fontSize:18, fontWeight:800}}>Hello , Bipin!</Text>
+      <Text style={{fontSize:18, fontWeight:800}}>Hello , {accountdetails.email} !</Text>
     </View>
     <View style={{height:60, borderWidth:1, borderColor:"#02ccfe", elevation:5, borderRadius:20, margin:5, backgroundColor:"#87CEEb", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
       <Text style={{height:"100%", width:"80%", paddingVertical:10}}>

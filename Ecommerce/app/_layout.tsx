@@ -20,6 +20,7 @@ export default function RootLayout() {
     <Stack.Screen name="(tabs)"  options={{ headerShown: false}} />
     <Stack.Screen name="Product_Detail"  options={{ headerShown: false}} />
     <Stack.Screen name="categories"  options={{ headerShown: false}} />
+    <Stack.Screen name="See_All"  options={{ headerShown: false}} />
   </Stack>
   </SafeAreaView>
   {/* </PersistGate> */}

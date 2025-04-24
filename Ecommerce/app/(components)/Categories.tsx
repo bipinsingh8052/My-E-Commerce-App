@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
+import See_All from "./See_All";
 
 export default function Categories() {
   const route = useRouter();
@@ -34,6 +35,14 @@ export default function Categories() {
       setloader(false);
     }
   };
+
+
+
+  // see all items
+  const seeAllItems=()=>{
+    return <See_All name="bipin"/>
+  }
+  // see all items
 
   const gotoNext = (id) => {
     console.log(id);
@@ -70,7 +79,9 @@ export default function Categories() {
           <View
             style={{ backgroundColor: "blue", padding: 10, borderRadius: 50 }}
           >
-            <AntDesign name="arrowright" size={20} color={"white"} />
+          <TouchableOpacity onPress={()=>{seeAllItems()}}>
+          <AntDesign name="arrowright" size={20} color={"white"} />
+          </TouchableOpacity>
           </View>
         </View>
       </View>

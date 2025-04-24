@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react'
@@ -37,7 +38,7 @@ export default function Categories() {
           'Content-Type': 'application/json'
         }
       })
-      // console.log(res.data);
+      console.log(res.data,"login response");
        Toast.show({
                 type: 'success', // 'success', 'error', 'info'
                 text1: res.data.message,
@@ -47,6 +48,7 @@ export default function Categories() {
                 autoHide: true, // Automatically hide after visibilityTime
               });
       setLoading(false);
+      let token= await AsyncStorage.setItem("token",JSON.stringify(res.data.token))
       router.push("/(tabs)")
     } catch (err) {
       // console.log(err.response.data,"error");

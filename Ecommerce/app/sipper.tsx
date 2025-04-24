@@ -6,6 +6,8 @@ import { Link } from 'expo-router';
 
 import { useRouter } from 'expo-router';
 import { TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { jwtDecode } from "jwt-decode";
 
         
 
@@ -14,8 +16,21 @@ const { width } = Dimensions.get('window');
 
 const Sipper = () => {
   const router=useRouter();
-  let gotonext=()=>{
-    router.push("/signup")
+
+
+  let gotonext=async()=>{
+    const token=await AsyncStorage.getItem('token');
+  
+    
+    if(token){
+      // console.log("token")
+      router.push("/(tabs)")
+    }
+    if(!token){
+      // console.log("Not token")
+       router.push("/signup")
+    }
+   
   }
 
   const images = [
