@@ -27,7 +27,7 @@ const [Userid,SetUserid]=useState("");
 const[email,setEmail]=useState("");
 const[qty,setQty]=useState(0);
 const [token,settoken]=useState("");
- const[load,setLoad]=useState(true);
+ const[load,setLoad]=useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   
   const [modalVisibletwo, setModalVisibletwo] = useState(false);
