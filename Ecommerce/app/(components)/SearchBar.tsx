@@ -1,5 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
-import React from 'react';
+import axios from 'axios';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -7,26 +9,37 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
-
+import Loader from './Loader'
 const { width } = Dimensions.get('window');
 
-const images = [
-  {
-    id: 1,
-    url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg',
-  },
-  {
-    id: 2,
-    url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg',
-  },
-  {
-    id: 3,
-    url: 'https://thumbs.dreamstime.com/b/vibrant-peacock-feather-resting-gently-lush-moss-single-brightly-colored-rests-delicately-covered-ground-tranquil-forest-363739804.jpg',
-  },
-];
 
 export default function Shop() {
+  let [data,setData]=useState([]);
+  let [load,setload]=useState(false)
+
+
+  let  route=useRouter();
+  let loading=async()=>{
+    setload(true)
+    let api="https://nexx-js-e-commerce-app-491i.vercel.app/api/product";
+    try {
+      let response=await axios.get(api)
+      // console.log(response.data.slice(0, 3))
+      setData(response.data.slice(0, 3))
+      setload(false)
+    } catch (error) {
+      setload(true)
+    }
+  }
+
+  // got to next page in product detail page 
+  const gotoProductDetailPage=(id)=>{
+    route.push(`/Product_Detail?id=${id}`)
+  }
+  // got to next page in product detail page 
+  useEffect(()=>{loading()},[])
   return (
     
       <View
@@ -101,16 +114,21 @@ export default function Shop() {
             dotStyle={{ width: 8, height: 8, borderRadius: 4 }}
             activeDotStyle={{ width: 16, height: 8, borderRadius: 4 }}
           >
-            {images.map((item) => (
+            { load?
+             <View style={{height:60, width:"100%"}}>
+             <Loader  loading={load}/>
+           </View>
+            :  data.map((item) => (
               <View
-                key={item.id}
+                key={item._id}
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
               >
+                <TouchableOpacity onPress={()=>{gotoProductDetailPage(item._id)}}>
                 <Image
-                  source={{ uri: item.url }}
+                  source={{ uri: item.mainImage }}
                   style={{
                     width: width * 0.9,
                     height: 200,
@@ -120,6 +138,7 @@ export default function Shop() {
                   }}
                   resizeMode="cover"
                 />
+                </TouchableOpacity>
               </View>
             ))}
           </Swiper>

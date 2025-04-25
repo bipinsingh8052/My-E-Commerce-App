@@ -38,7 +38,7 @@ export default function Categories() {
           'Content-Type': 'application/json'
         }
       })
-      console.log(res.data,"login response");
+      // console.log(res.data,"login response");
        Toast.show({
                 type: 'success', // 'success', 'error', 'info'
                 text1: res.data.message,

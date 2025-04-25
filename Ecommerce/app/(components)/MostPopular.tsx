@@ -9,10 +9,12 @@ export default function Mostpopular() {
 
   let[data,setdata]=useState([]);
   let[load,setload]=useState(false)
+  let[storeApi,setStoreApi]=useState("")
   let route=useRouter();
   let loading=async()=>{
     setload(true)
     let api="https://nexx-js-e-commerce-app-491i.vercel.app/api/product";
+    setStoreApi(api);
     try {
       let response= await axios.get(api)
       // console.log(response.data[0])
@@ -24,6 +26,13 @@ export default function Mostpopular() {
       
     }
   }
+
+  // this function is open the see all item
+  const seeAllItem=()=>{
+    route.push(`/See_All_Item?api=${storeApi} &start=0&end=30`)
+  }
+  // this function is open the see all item
+
 
 
   // this is goto product page function in thaknkj
@@ -42,7 +51,9 @@ export default function Mostpopular() {
         <View style={{ flexDirection: "row", alignItems: "center", paddingRight: 20 }}>
           <Text style={{ fontSize: 16, fontWeight: 'bold' }}> See All</Text>
           <View style={{ backgroundColor: "blue", padding: 10, borderRadius: 50, marginLeft: 5 }}>
-            <AntDesign name="arrowright" size={20} color={"white"} />
+           <TouchableOpacity onPress={seeAllItem}>
+           <AntDesign name="arrowright" size={20} color={"white"} />
+           </TouchableOpacity>
           </View>
         </View>
       </View>

@@ -85,9 +85,9 @@ export default function Product_Detail() {
         // console.log(response.data,"datat");
         setData(response.data);
         // store images
-        const galleryImages = (response.data.galleryImages || []).map((imgUrl) =>
-          imgUrl.includes('.svg') ? imgUrl.replace('/upload/', '/upload/f_png/') : imgUrl
-        );
+        const galleryImages = (response.data.galleryImages || []).map(imgUrl => 
+          imgUrl.replace(/\.(jpg|jpeg|png|gif|svg)$/, '.webp')
+        );
         setImages(galleryImages)
         // store a size
         setStoreSize(response.data.size.split(','))
@@ -157,7 +157,11 @@ export default function Product_Detail() {
                 
                   {images.map((image ,index) => {  return(
                     <View key={index} style={styles.slide}>
-                      <Image source={{uri:image}} style={{width:"100%", height:"100%"}} resizeMode='contain'/>
+
+                      {/* <Text>{image}</Text> */}
+                      <Image source={{uri:image}} style={{width:"100%", height:"100%"}}  onError={() => <View>
+                      <Loader loading={true} />
+                      </View>} resizeMode='contain'/>
                     </View>
                   )})}
                 </Swiper>

@@ -18,10 +18,12 @@ export default function Categories() {
   const [activeCategory, setActiveCategory] = useState(false);
   const [data, setData] = useState([]);
   const [loader, setloader] = useState(false);
+  const [storeApi,setStoreApi]=useState("");
 
   let loading = async () => {
     setloader(true);
     let api = "https://nexx-js-e-commerce-app-491i.vercel.app/api/categories";
+    setStoreApi(api);
     try {
       let response = await axios.get(api);
       // const json=await response.json()
@@ -40,7 +42,7 @@ export default function Categories() {
 
   // see all items
   const seeAllItems=()=>{
-    return <See_All name="bipin"/>
+    route.push(`/See_All?api=${storeApi}`)
   }
   // see all items
 

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { FlatList } from 'react-native';
 import Loader from './Loader'
+import { useRouter } from 'expo-router';
 export default function AllItems() {
   let[loader,setloader]=useState(false)
    let[data,setdata]=useState([]);
@@ -24,6 +25,14 @@ export default function AllItems() {
         
       }
     }
+
+
+    // got to next page in produt detail page
+    const route=useRouter();
+    const handleItemPress=(id)=>{
+      route.push(`/Product_Detail?id=${id}`)
+    }
+    // got to next page in produt detail page
   
     useEffect(()=>{loading()},[])
 
@@ -49,7 +58,7 @@ export default function AllItems() {
               horizontal
               renderItem={({item}) => 
                 <TouchableOpacity 
-              // onPress={() => handleItemPress(index)} 
+              onPress={() => handleItemPress(item._id)} 
               style={{
                 height: 250,
                 width: 150,
