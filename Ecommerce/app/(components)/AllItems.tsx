@@ -46,7 +46,7 @@ export default function AllItems() {
           </View>
         </View>
       </View>
-      <ScrollView>
+      <ScrollView style={{marginBottom:10}} showsHorizontalScrollIndicator={false}>
         <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", alignItems: "center" }}>
          {
           loader? <View style={{height:60, width:"100%"}}>
@@ -56,11 +56,14 @@ export default function AllItems() {
           <FlatList
               data={data}
               horizontal
-              renderItem={({item}) => 
+              renderItem={({item}) =>{
+                const truncatedString = item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name; 
+                return(
+
                 <TouchableOpacity 
               onPress={() => handleItemPress(item._id)} 
               style={{
-                height: 250,
+                height: 270,
                 width: 150,
                 borderWidth: 0.1,
                 alignItems: "center",
@@ -71,17 +74,18 @@ export default function AllItems() {
                 margin: 5,
               }}
             >
-              <View style={{ height: 200, width: 150, paddingLeft: 5, paddingTop: 5 }}>
+              <View style={{ height: 180, width: 150, paddingLeft: 5, paddingTop: 5,}}>
                 <Image 
                   source={{ uri: item.mainImage }} 
                   style={{ height: "96%", width: "96%", borderRadius: 5 }} 
                 />
               </View>
-              <Text style={{ height: 60, padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
-              {item.brand}   {item.name}
+              <Text style={{ height: 50, padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
+             {truncatedString}
               </Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}>$17.00</Text>
             </TouchableOpacity>
+              )}
               }
         />
          }

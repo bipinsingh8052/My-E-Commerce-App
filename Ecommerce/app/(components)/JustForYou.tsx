@@ -42,7 +42,7 @@ export default function JustForYou() {
             <Loader loading={load} />
           </View>
         ) : (
-          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent:"center", alignItems:"center" }}>
             {
               data.map((item, index) => {
                 const truncatedString = item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name;
