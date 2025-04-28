@@ -23,10 +23,10 @@ import RazorpayCheckout from 'react-native-razorpay';
 import { Platform } from 'react-native';
 export default function PaymentOption() {
   // redux  value
-  const value = useSelector((state) => state.cart.items);
+  const value = useSelector((state:any) => state.cart.items);
   // console.log(value,"payment console")
-  const totals = value.reduce(
-    (accumulator, e) => {
+  const totals:any = value.reduce(
+    (accumulator:any, e:any) => {
       accumulator.total += e.price * e.qty; // Sum total price
       accumulator.quantity += e.qty; // Sum total quantity
       return accumulator; // Return the accumulator for the next iteration
@@ -106,122 +106,233 @@ export default function PaymentOption() {
 
   // payment btn
 
+  // const paymentBtn = async () => {
+  //   // setLoad(true);
+  //   // this is Delivery
+  //   let firstDelivery = false;
+  //   let secondDelivery = false;
+
+  //   if (selectedPaymentId == 1) {
+  //     firstDelivery = true;
+  //   }
+  //   if (selectedPaymentId == 2) {
+  //     secondDelivery = true;
+  //   }
+  //   if (!input.name) {
+  //     Alert.alert("please Enter the name: ");
+  //   }
+  //   let shippingDetails = {
+  //     fullName: input.name,
+  //     phone: input.mobileNo,
+  //     addressLine: input.addressNo,
+  //     expressDelivery: firstDelivery,
+  //     slowDelivery: secondDelivery,
+  //     city: input.cityname,
+  //     postalCode: input.PinCode,
+  //   };
+
+  //   for (let key in shippingDetails) {
+  //     if (key !== 'expressDelivery' && key !== 'slowDelivery' && ! shippingDetails[key]) {
+  //       Toast.show({ type: 'error', text1: `Missing address: ${key}` });
+  //       return; 
+  //     }
+
+  //   }
+  //   if (!shippingDetails.expressDelivery && !shippingDetails.slowDelivery) {
+  //     Toast.show({ type: 'error', text1: 'Please select at least one delivery option: Express or Slow.' });
+  //     return; 
+  //   }
+  //   // console.log("producet detaila: ", shippingDetails);
+  //   // this is Delivery
+
+  //   // Know it start the the work from axios
+  //   // const options = {
+  //   //   description: 'Credits towards consultation',
+  //   //   image: 'https://i.imgur.com/3g7nmJC.jpg',
+  //   //   currency: 'INR',
+  //   //   key: 'rzp_test_PTYTyLcIdYhrcy',
+  //   //   amount: totals.total*100,
+  //   //   name:shippingDetails.fullName,
+  //   //   order_id: Userid,//Replace this with an order_id created using Orders API.
+  //   //   prefill: {
+  //   //     email:email,
+  //   //     contact: shippingDetails.phone,
+  //   //     name: shippingDetails.fullName
+  //   //   },
+  //   //   theme: {color: '#53a20e'}
+  //   // }
+
+  //   // try {
+  //   //   RazorpayCheckout.open(options)
+  //   //   .then(async(data) => {
+  //   //     // handle success
+  //   //     const response = await axios.post(
+  //   //       "https://nexx-js-e-commerce-app-491i.vercel.app/api/orders",
+  //   //       {
+  //   //         productId: Productid,
+  //   //         shippingDetails: shippingDetails,
+  //   //         userId: Userid,
+  //   //         quantity: qty,
+  //   //       },
+  //   //       {
+  //   //         headers: {
+  //   //           Authorization: `Bearer ${token}`,
+  //   //         },
+  //   //       }
+  //   //     );
+  //   //     console.log(response.data);
+  //   //     Toast.show({
+  //   //       type: "success", // 'success', 'error', 'info'
+  //   //       text1: response.data.message,
+  //   //       position: "top", // 'top', 'bottom', 'center'
+  //   //       visibilityTime: 4000, // Duration in milliseconds
+  //   //       autoHide: true, // Automatically hide after visibilityTime
+  //   //     });
+  //   //     //  ${data.razorpay_payment_id}
+  //   //   }).catch((error) => {
+  //   //     // handle failure
+  //   //     alert(`Error: ${error.code} | ${error.description}`);
+  //   //   });
+      
+  //   //   // console.log("npormal;")
+     
+  //   //   // setLoad(false)
+  //   //     // RazorpayCheckout.open(options)
+      
+  //   // }
+  //   //  catch (error) {
+  //   //   if (axios.isAxiosError(error)) {
+  //   //     console.error("Axios error:", error.response?.data || error.message);
+  //   //   } else {
+  //   //     console.error("Unexpected error:", error);
+  //   //   }
+  //   //   Toast.show({
+  //   //     type: "error", // 'success', 'error', 'info'
+  //   //     text1: " Order Placed is not Completed Please try again!!",
+  //   //     position: "top", // 'top', 'bottom', 'center'
+  //   //     visibilityTime: 4000, // Duration in milliseconds
+  //   //     autoHide: true, // Automatically hide after visibilityTime
+  //   //   });
+  //   //   // setLoad(false);
+  //   // }
+  //   // // Know it end the the work from axios
+  // };
   const paymentBtn = async () => {
-    // setLoad(true);
-    // this is Delivery
     let firstDelivery = false;
     let secondDelivery = false;
-
-    if (selectedPaymentId == 1) {
+    try {
+        // Validate delivery selection first
+          if (selectedPaymentId == 1) {
       firstDelivery = true;
+      // Toast.show({ type: 'error', text1: 'Please select a delivery method' });
+      //       return;
     }
     if (selectedPaymentId == 2) {
       secondDelivery = true;
+      // Toast.show({ type: 'error', text1: 'Please select a delivery method' });
+      //       return;
     }
-    if (!input.name) {
-      Alert.alert("please Enter the name: ");
-    }
-    let shippingDetails = {
-      fullName: input.name,
-      phone: input.mobileNo,
-      addressLine: input.addressNo,
-      expressDelivery: firstDelivery,
-      slowDelivery: secondDelivery,
-      city: input.cityname,
-      postalCode: input.PinCode,
-    };
+        // if (selectedPaymentId != 1 || selectedPaymentId != 2) {
+            
+        // }
 
-    for (let key in shippingDetails) {
-      if (key !== 'expressDelivery' && key !== 'slowDelivery' && ! shippingDetails[key]) {
-        Toast.show({ type: 'error', text1: `Missing address: ${key}` });
-        return; 
-      }
+        // Validate input fields
+        const requiredFields = {
+            name: input.name,
+            mobileNo: input.mobileNo,
+            addressNo: input.addressNo,
+            cityname: input.cityname,
+            PinCode: input.PinCode
+        };
 
-    }
-    if (!shippingDetails.expressDelivery && !shippingDetails.slowDelivery) {
-      Toast.show({ type: 'error', text1: 'Please select at least one delivery option: Express or Slow.' });
-      return; 
-    }
-    // console.log("producet detaila: ", shippingDetails);
-    // this is Delivery
+        for (const [field, value] of Object.entries(requiredFields)) {
+            if (!value?.trim()) {
+                Toast.show({ type: 'error', text1: `Missing ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}` });
+                return;
+            }
+        }
 
-    // Know it start the the work from axios
-    const options = {
-      description: 'Credits towards consultation',
-      image: 'https://i.imgur.com/3g7nmJC.jpg',
-      currency: 'INR',
-      key: 'rzp_test_PTYTyLcIdYhrcy',
-      amount: totals.total*100,
-      name:shippingDetails.fullName,
-      order_id: Userid,//Replace this with an order_id created using Orders API.
-      prefill: {
-        email:email,
-        contact: shippingDetails.phone,
-        name: shippingDetails.fullName
+        // Prepare shipping details
+        const shippingDetails = {
+            fullName: input.name.trim(),
+            phone: input.mobileNo.trim(),
+            addressLine: input.addressNo.trim(),
+            expressDelivery:firstDelivery ,
+            slowDelivery: secondDelivery,
+            city: input.cityname.trim(),
+            postalCode: input.PinCode.trim()
+        };
+
+        // Payment configuration
+        
+       
+        const paymentOptions = {
+        description: 'Credits towards consultation',
+        image: 'https://i.imgur.com/3g7nmJC.png',
+        currency: 'INR',
+        key: 'rzp_test_PTYTyLcIdYhrcy',
+        amount: totals.total * 100,
+        name: shippingDetails.fullName,
+        orderId:`orderid_${Date.now()} `,
+        prefill: {
+          email: email,
+          contact: shippingDetails.phone,
+          name: shippingDetails.fullName
       },
-      theme: {color: '#53a20e'}
-    }
+      theme: { color: '#53a20e' }
+    };
+        console.log(paymentOptions,"ths is Your Payment Options btn")
 
-    try {
-      RazorpayCheckout.open(options)
-      .then(async(data) => {
-        // handle success
-        const response = await axios.post(
-          "https://nexx-js-e-commerce-app-491i.vercel.app/api/orders",
-          {
-            productId: Productid,
-            shippingDetails: shippingDetails,
-            userId: Userid,
-            quantity: qty,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+        // Initiate payment
+        const paymentResponse = await RazorpayCheckout.open(paymentOptions).then((data :any) => {
+          // handle success
+          alert(`Success: ${data.razorpay_payment_id}`);
+        })
+      
+        
+        console.log(paymentResponse ,"thsi Process order on successful payment")
+        // Process order on successful payment
+        const orderResponse = await axios.post(
+            "https://nexx-js-e-commerce-app-491i.vercel.app/api/orders",
+            {
+                productId: Productid,
+                shippingDetails,
+                userId: Userid,
+                quantity: qty,
             },
-          }
+            { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log(response.data);
+
         Toast.show({
-          type: "success", // 'success', 'error', 'info'
-          text1: response.data.message,
-          position: "top", // 'top', 'bottom', 'center'
-          visibilityTime: 4000, // Duration in milliseconds
-          autoHide: true, // Automatically hide after visibilityTime
+            type: "success",
+            text1: orderResponse.data.message,
+            position: "top",
+            visibilityTime: 4000
         });
-        //  ${data.razorpay_payment_id}
-      }).catch((error) => {
-        // handle failure
-        alert(`Error: ${error.code} | ${error.description}`);
-      });
-      
-      // console.log("npormal;")
-     
-      // setLoad(false)
-        // RazorpayCheckout.open(options)
-      
+
+    } catch (error) {
+        handlePaymentError(error);
     }
-     catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Axios error:", error.response?.data || error.message);
-      } else {
-        console.error("Unexpected error:", error);
-      }
-      Toast.show({
-        type: "error", // 'success', 'error', 'info'
-        text1: " Order Placed is not Completed Please try again!!",
-        position: "top", // 'top', 'bottom', 'center'
-        visibilityTime: 4000, // Duration in milliseconds
-        autoHide: true, // Automatically hide after visibilityTime
-      });
-      // setLoad(false);
-    }
-    // Know it end the the work from axios
-  };
+};
+
+// Helper function for error handling
+const handlePaymentError = (error:any) => {
+    const errorMessage = axios.isAxiosError(error)
+        ? error.response?.data?.message || error.message
+        : error.description || 'Payment failed';
+console.log(error.response?.data?.message,error.description,error.message )
+    Toast.show({
+        type: "error",
+        text1: errorMessage,
+        position: "top",
+        visibilityTime: 4000
+    });
+};
   // payment btn
 
   const loading = async () => {
     // find the infromation from token
-    let toke = await AsyncStorage.getItem("token");
+    let toke:any = await AsyncStorage.getItem("token");
     settoken(toke);
     const decode = jwtDecode(toke);
 
@@ -763,10 +874,10 @@ export default function PaymentOption() {
                   <Text style={{ fontSize: 16, fontWeight: 700 }}>
                     Contact Information
                   </Text>
-                  <Text style={{ fontSize: 14, fontWeight: 350 }}>
+                  <Text style={{ fontSize: 14, fontWeight: '350'}}>
                     {input.mobileNo} , {input.NoAnother}
                   </Text>
-                  <Text style={{ fontSize: 14, fontWeight: 350 }}>{email}</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '350' }}>{email}</Text>
                 </View>
                 <View>
                   <TouchableOpacity
@@ -831,7 +942,7 @@ export default function PaymentOption() {
               </View>
 
               <ScrollView>
-                {value.map((e, index) => {
+                {value.map((e:any, index:any) => {
                   const galleryImages = e.image.includes(".svg")
                     ? e.image.replace("/upload/", "/upload/f_png/")
                     : e.image;
