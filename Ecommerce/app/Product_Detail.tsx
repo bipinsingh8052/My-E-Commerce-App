@@ -105,8 +105,8 @@ export default function Product_Detail() {
 
 
     const deliveryOptions = [
-      { id: 1, type: 'Standard', time: '5-7 days', price: '$3.00' },
-      { id: 2, type: 'Express', time: '2-3 days', price: '$5.00' },
+      { id: 1, type: 'Standard', time: '5-7 days', price: '  ₹ 3.00' },
+      { id: 2, type: 'Express', time: '2-3 days', price: '   ₹ 5.00' },
     ];
     const showNotice=()=>{
       Toast.show({
@@ -170,7 +170,7 @@ export default function Product_Detail() {
 {/* Product Details */}
   <View>
     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 10, paddingHorizontal: 25 }}>
-      <Text style={{ fontFamily: "cursive", fontSize: 25, fontWeight: '800' }}>$ {data.price}</Text>
+      <Text style={{ fontFamily: "cursive", fontSize: 25, fontWeight: '800' }}> ₹ {data.price}</Text>
       <TouchableOpacity style={{ padding: 10, borderRadius: 50, backgroundColor: "lightgray" }} onPress={()=>{onShare(id)}}>
         <FontAwesome name="share" size={20} color={"gray"} />
       </TouchableOpacity>

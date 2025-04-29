@@ -79,7 +79,7 @@ export default function JustForYou() {
                     <Text style={{ padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
                       {truncatedString}
                     </Text>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}>$ {item.price}</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}> ₹ {item.price}</Text>
                   </TouchableOpacity>
                 );
               })

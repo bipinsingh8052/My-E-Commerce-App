@@ -56,7 +56,7 @@ const YourScreen = () => {
           alignItems: "center",
           paddingHorizontal: 20
         }}>
-          <Text style={{ fontSize: 20, fontWeight: '800' }}>Total $ {totals.total}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '800' }}>Total  ₹ {totals.total}</Text>
           <TouchableOpacity style={{
             backgroundColor: "blue",
             paddingHorizontal: 10,

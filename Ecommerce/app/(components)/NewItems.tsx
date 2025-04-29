@@ -60,11 +60,11 @@ const seeAlltems=()=>{
         <ScrollView horizontal>
         {
           data.map((item,index)=>{
-            const truncatedString = item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name;
+            const truncatedString = item.name.length > 25 ? item?.name.slice(0, 25) + '...' : item?.name;
             const galleryImages = item.mainImage.includes('.svg') 
               ? item.mainImage.replace('/upload/', '/upload/f_png/') 
               : item.mainImage;
-            return(<TouchableOpacity key={index} onPress={()=>{handleproduct(item._id)}}>
+            return(<TouchableOpacity key={index} onPress={()=>{handleproduct(item?._id)}}>
             <View  style={{height:300,  width:200, borderWidth:0.1, marginHorizontal:10, borderRadius:5, overflow:"hidden", padding: 3, elevation:0.5, shadowColor: '#000',
               shadowOpacity: 0.25,
               shadowRadius: 8}}>
@@ -72,7 +72,7 @@ const seeAlltems=()=>{
           <Image source={{uri:galleryImages}} style={{height:190,width:190, alignSelf:"center", marginRight:6 }} />
         </View>
         <Text style={{height:60, padding:5, paddingHorizontal:10, fontSize:16, fontWeight:500}}>{truncatedString}</Text>
-        <Text style={{fontSize:20, fontWeight:800, paddingLeft:10}}>$ {item.price}</Text>
+        <Text style={{fontSize:20, fontWeight:800, paddingLeft:10}}> ₹ {item?.price}</Text>
         </View>
         </TouchableOpacity>
           )})

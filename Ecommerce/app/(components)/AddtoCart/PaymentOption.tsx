@@ -789,7 +789,7 @@ console.log(error.response?.data?.message,error.description,error.message )
                 }}
               >
                 <Text style={{ fontSize: 20, fontWeight: 800 }}>
-                  Total $ {totals.total}
+                  Total  ₹ {totals.total}
                 </Text>
                 <TouchableOpacity
                   style={{

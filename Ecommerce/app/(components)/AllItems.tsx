@@ -83,7 +83,7 @@ export default function AllItems() {
               <Text style={{ height: 50, padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
              {truncatedString}
               </Text>
-              <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}>$17.00</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10,  alignSelf:"flex-start"}}> ₹ {item.price}</Text>
             </TouchableOpacity>
               )}
               }

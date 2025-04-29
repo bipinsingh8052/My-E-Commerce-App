@@ -8,6 +8,7 @@ import {
   Image,
   TextInput,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
@@ -17,7 +18,10 @@ const { width } = Dimensions.get('window');
 
 export default function Shop() {
   let [data,setData]=useState([]);
+  let[allData,setAllData]=useState([]);
+  let[showSearch,setShowSearch]=useState([]);
   let [load,setload]=useState(false)
+  let[search,setSearch]=useState("")
 
 
   let  route=useRouter();
@@ -26,7 +30,8 @@ export default function Shop() {
     let api="https://nexx-js-e-commerce-app-491i.vercel.app/api/product";
     try {
       let response=await axios.get(api)
-      // console.log(response.data.slice(0, 3))
+      console.log(response.data.slice(0, 3))
+      setAllData(response.data);
       setData(response.data.slice(0, 3))
       setload(false)
     } catch (error) {
@@ -34,13 +39,25 @@ export default function Shop() {
     }
   }
 
+  
   // got to next page in product detail page 
   const gotoProductDetailPage=(id)=>{
     route.push(`/Product_Detail?id=${id}`)
   }
   // got to next page in product detail page 
   useEffect(()=>{loading()},[])
-  return (
+  useEffect(()=>{
+   
+      setShowSearch(
+        allData.filter((item) =>
+          item.name.toLowerCase().includes(search.toLowerCase())
+        )
+  
+      )
+
+  },[search])
+  console.log(showSearch.length,"searxg showkil")
+  return ( <>
     
       <View
         style={{
@@ -90,6 +107,7 @@ export default function Shop() {
                 paddingLeft: 10,
                 fontSize: 14,
               }}
+              onChangeText={(e)=>{setSearch(e)}}
             />
             <AntDesign size={20} color={'#2e86de'} name="camerao" />
           </View>
@@ -128,7 +146,7 @@ export default function Shop() {
               >
                 <TouchableOpacity onPress={()=>{gotoProductDetailPage(item._id)}}>
                 <Image
-                  source={{ uri: item.mainImage }}
+                  source={{ uri: item?.mainImage }}
                   style={{
                     width: width * 0.9,
                     height: 200,
@@ -144,6 +162,28 @@ export default function Shop() {
           </Swiper>
         </View>
       </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginBottom:10}}>
+              {
+                showSearch.map((item,index)=>{
+                  const truncatedString = item?.name.length > 25 ? item?.name.slice(0, 25) + '...' : item.name;
+                  const galleryImages = item?.mainImage.includes('.svg') 
+                    ? item?.mainImage.replace('/upload/', '/upload/f_png/') 
+                    : item?.mainImage;
+                  return(<TouchableOpacity key={index} onPress={()=>{gotoProductDetailPage(item._id)}}>
+                  <View  style={{height:300,  width:200, borderWidth:0.1, marginHorizontal:10, borderRadius:5, overflow:"hidden", padding: 3, elevation:0.5, shadowColor: '#000',
+                    shadowOpacity: 0.25,
+                    shadowRadius: 8}}>
+              <View  style={{height:200, width:200}}>
+                <Image source={{uri:galleryImages}} style={{height:190,width:190, alignSelf:"center", marginRight:6 }} />
+              </View>
+              <Text style={{height:60, padding:5, paddingHorizontal:10, fontSize:16, fontWeight:500}}>{truncatedString}</Text>
+              <Text style={{fontSize:20, fontWeight:800, paddingLeft:10}}> ₹ {item.price}</Text>
+              </View>
+              </TouchableOpacity>
+                )})
+              }
+            </ScrollView>
+     </>
   
   );
 }
