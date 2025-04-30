@@ -57,7 +57,8 @@ export default function ShopViewProject() {
 
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft:5
+            marginLeft:5,
+            marginTop:0,
           }}>
             <TouchableOpacity 
               activeOpacity={0.7} 

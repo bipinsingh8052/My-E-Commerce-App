@@ -84,7 +84,7 @@ export default function Categories_All() {
                 <Text style={{  padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '400' }}>
                   {e.name}
                 </Text>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}>$ {e.price}</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}>₹ {e.price}</Text>
               </TouchableOpacity>
             );
           })

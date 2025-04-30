@@ -24,7 +24,7 @@ export default function JustForYou() {
       setLoad(false);
     } catch (error) {
       setLoad(false);
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -42,7 +42,7 @@ export default function JustForYou() {
             <Loader loading={load} />
           </View>
         ) : (
-          <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent:"center", alignItems:"center" }}>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent:"space-around", alignItems:"center" }}>
             {
               data.map((item, index) => {
                 const truncatedString = item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name;
@@ -55,9 +55,10 @@ export default function JustForYou() {
                     key={index}
                     onPress={() => handleItemPress(item._id)} 
                     style={{
-                      height: 250,
+                      // height: 250,
                       width: 150,
                       marginHorizontal: 6,
+
                       marginVertical: 6,
                       borderWidth: 0.1,
                       borderRadius: 5,
@@ -76,10 +77,10 @@ export default function JustForYou() {
                         style={{ height: "96%", width: "100%", borderRadius: 5, marginLeft: 5 }} 
                       />
                     </View>
-                    <Text style={{ padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
+                    <Text style={{ padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500',  paddingLeft:10, color:"gray"}}>
                       {truncatedString}
                     </Text>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10 }}> ₹ {item.price}</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '350', paddingLeft: 10 }}>₹ {item.price}</Text>
                   </TouchableOpacity>
                 );
               })

@@ -96,7 +96,8 @@ export default function Categories() {
             horizontal
             style={{ flexDirection:"row", flexWrap:"wrap"}}
             keyExtractor={(item) => item._id} // Adjust based on your data structure
-            renderItem={({ item }) => (
+            renderItem={({ item }) => 
+              (
               <TouchableOpacity
                 onPress={() => {
                   setActiveCategory(true), gotoNext(item._id);
@@ -118,7 +119,7 @@ export default function Categories() {
                 <View style={{ height: 220, width: 170, flexDirection: "row" }}>
                   <View
                     style={{
-                      height: 220,
+                      height: 210,
                       width: 170,
                       flexDirection: "row",
                       flexWrap: "wrap",

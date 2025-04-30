@@ -65,14 +65,14 @@ const seeAlltems=()=>{
               ? item.mainImage.replace('/upload/', '/upload/f_png/') 
               : item.mainImage;
             return(<TouchableOpacity key={index} onPress={()=>{handleproduct(item?._id)}}>
-            <View  style={{height:300,  width:200, borderWidth:0.1, marginHorizontal:10, borderRadius:5, overflow:"hidden", padding: 3, elevation:0.5, shadowColor: '#000',
+            <View  style={{  width:200, borderWidth:0.1, marginHorizontal:10, borderRadius:5, overflow:"hidden", padding: 3, elevation:0.5, shadowColor: '#000',
               shadowOpacity: 0.25,
-              shadowRadius: 8}}>
+              shadowRadius: 8 }}>
         <View  style={{height:200, width:200}}>
           <Image source={{uri:galleryImages}} style={{height:190,width:190, alignSelf:"center", marginRight:6 }} />
         </View>
-        <Text style={{height:60, padding:5, paddingHorizontal:10, fontSize:16, fontWeight:500}}>{truncatedString}</Text>
-        <Text style={{fontSize:20, fontWeight:800, paddingLeft:10}}> ₹ {item?.price}</Text>
+        <Text style={{ padding:5, paddingHorizontal:10, fontSize:16, fontWeight:500, color:"gray", paddingLeft:10}}>{truncatedString}</Text>
+        <Text style={{fontSize:18, fontWeight:'350', paddingLeft:10}}> ₹ {item?.price}</Text>
         </View>
         </TouchableOpacity>
           )})

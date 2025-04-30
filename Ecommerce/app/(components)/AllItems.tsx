@@ -57,13 +57,13 @@ export default function AllItems() {
               data={data}
               horizontal
               renderItem={({item}) =>{
-                const truncatedString = item.name.length > 25 ? item.name.slice(0, 25) + '...' : item.name; 
+                const truncatedString = item.name.length > 15 ? item.name.slice(0, 15) + '...' : item.name; 
                 return(
 
                 <TouchableOpacity 
               onPress={() => handleItemPress(item._id)} 
               style={{
-                height: 270,
+                // height: 270,
                 width: 150,
                 borderWidth: 0.1,
                 alignItems: "center",
@@ -80,10 +80,10 @@ export default function AllItems() {
                   style={{ height: "96%", width: "96%", borderRadius: 5 }} 
                 />
               </View>
-              <Text style={{ height: 50, padding: 5, paddingHorizontal: 10, fontSize: 16, fontWeight: '500' }}>
+              <Text style={{  padding: 3, paddingHorizontal: 10, fontSize: 16, fontWeight: '500', alignSelf:"flex-start", paddingLeft:10, color:"gray" }}>
              {truncatedString}
               </Text>
-              <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 10,  alignSelf:"flex-start"}}> ₹ {item.price}</Text>
+              <Text style={{ fontSize: 20, fontWeight: '350', paddingLeft: 10,  alignSelf:"flex-start"}}> ₹ {item.price}</Text>
             </TouchableOpacity>
               )}
               }

@@ -7,7 +7,7 @@ import JustForYou from './(components)/JustForYou';
 import {  Dimensions, StyleSheet, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Reviews from './(components)/Product_Details_All/Review';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 import { useSearchParams } from 'expo-router/build/hooks';
 import { Share } from 'react-native';
@@ -73,7 +73,11 @@ export default function Product_Detail() {
     // Share the code 
    
 
-
+// buy single Product
+const BuySingleProduct=()=>{
+  router.push("/(payment)/index")
+}
+// buy single Product
 
 
     const LoadingFunction =async()=>{
@@ -141,7 +145,7 @@ export default function Product_Detail() {
           Add to Cart
       </Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{BuySingleProduct()}}>
       <Text style={{paddingHorizontal:20, paddingVertical:10, backgroundColor:"blue", color:"white", marginBottom:0, borderRadius:10}}>Buy Now</Text>
       </TouchableOpacity>
    </View>
