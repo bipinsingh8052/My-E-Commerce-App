@@ -1,4 +1,4 @@
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
+import { AntDesign, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -521,6 +521,9 @@ console.log(error.response?.data?.message,error.description,error.message )
               justifyContent: "center",
             }}
           >
+            <View style={{width:"80%",position:"relative", top:20,zIndex:11, justifyContent:"flex-end", alignItems:"flex-end" }}>
+              <TouchableOpacity style={{paddingHorizontal:10, paddingVertical:10, borderRadius:50, backgroundColor:"blue"  }} onPress={()=>{ setModalVisible(false)}}><FontAwesome name="cut" size={20} color={"white"} /></TouchableOpacity>
+            </View>
             <View
               style={{
                 height: "auto",
@@ -661,6 +664,9 @@ console.log(error.response?.data?.message,error.description,error.message )
               justifyContent: "center",
             }}
           >
+             <View style={{width:"80%",position:"relative", top:20,zIndex:11, justifyContent:"flex-end", alignItems:"flex-end" }}>
+              <TouchableOpacity style={{paddingHorizontal:10, paddingVertical:10, borderRadius:50, backgroundColor:"blue"  }} onPress={()=>{ setModalVisibletwo(false)}}><FontAwesome name="cut" size={20} color={"white"} /></TouchableOpacity>
+            </View>
             <View
               style={{
                 height: "auto",

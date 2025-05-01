@@ -7,19 +7,31 @@ import { View,Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 
 export default function Profile() {
   let[accountdetails,setAccountDetail]=useState([])
+  const router=useRouter();
+
+
+
+
   let loading=async()=>{
-    let token=await AsyncStorage.getItem("token")
+    let token:any=await AsyncStorage.getItem("token")
     try {
-      const decoded = jwtDecode(token);
+      const decoded:any = jwtDecode(token);
       console.log(decoded)
       setAccountDetail(decoded)
     } catch (error) {
-     let route=useRouter()
-     route.push("/login") 
+     
+     router.push("/login") 
     }
   }
+
+
+  const gotoSettingPage=()=>{
+    // console.log("setting")
+    router.push("/(components)/(payment)/setting")
+  }
+
   useEffect(()=>{
-    loading();
+    loading()
   },[])
   return (
    <View>
@@ -39,7 +51,9 @@ export default function Profile() {
         <AntDesign name='barschart' size={15} color={"white"}/>
         </View>
         <View style={{padding:10, backgroundColor:"#4e9fe5", borderRadius:50, justifyContent:"center"}}>
-        <AntDesign name="setting" size={15} color={"black"}/>
+       <TouchableOpacity onPress={()=>{gotoSettingPage()}}>
+       <AntDesign name="setting" size={15} color={"black"}/>
+       </TouchableOpacity>
         </View>
        </View>
     </View>

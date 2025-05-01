@@ -9,7 +9,7 @@ import Swiper from 'react-native-swiper';
 import Reviews from './(components)/Product_Details_All/Review';
 import { router, useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
-import { useSearchParams } from 'expo-router/build/hooks';
+import { useRouter, useSearchParams } from 'expo-router/build/hooks';
 import { Share } from 'react-native';
 import Loader from './(components)/Loader'
 import { useDispatch } from 'react-redux';
@@ -44,6 +44,7 @@ export default function Product_Detail() {
     // loader
     let [load,setLoad]=useState(false)
     let{id}=useLocalSearchParams();
+    let route:any=useRouter();
     // setIdProduct(id);
 
 
@@ -75,7 +76,7 @@ export default function Product_Detail() {
 
 // buy single Product
 const BuySingleProduct=()=>{
-  router.push("/(payment)/index")
+  route.push(`/(components)/(payment)?id=${id}&size=${input}`)
 }
 // buy single Product
 

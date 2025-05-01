@@ -1,9 +1,21 @@
 import { Text, View } from 'react-native'
-import { Tabs } from 'expo-router'
-import React from 'react'
+import { Tabs, useRouter } from 'expo-router'
+import React, { useEffect } from 'react'
 import { AntDesign, Feather, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function _layout() {
+export default function _layout() { 
+//   let router=useRouter()
+//   let loading=async()=>{
+//   const token=await AsyncStorage.getItem('token');
+//   if(!token){
+//       router.replace("/login")
+//   }
+// }
+// useEffect(()=>{
+//   loading()
+//   console.log("login")
+// },[])
   return (
     <Tabs>
         <Tabs.Screen name='accountpage' options={{title:"Account" ,headerShown:false , tabBarIcon: () => { return(
