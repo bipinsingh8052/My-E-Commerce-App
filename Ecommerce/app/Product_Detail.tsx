@@ -12,11 +12,12 @@ import axios from 'axios';
 import { useRouter, useSearchParams } from 'expo-router/build/hooks';
 import { Share } from 'react-native';
 import Loader from './(components)/Loader'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from './redux/slice/cart';
 import { AppDispatch } from './redux/store';
 const { width } = Dimensions.get('window');
 import Toast from 'react-native-toast-message';
+import { addWishList } from './redux/slice/wish';
 
 
 
@@ -50,9 +51,8 @@ export default function Product_Detail() {
 
     // dispatvh
     let dispatch: AppDispatch=useDispatch();
-
-    // Share the code 
-    const onShare = async (k) => {
+    let value:any=useSelector(state=>state.wish.items);
+    const onShare = async (k:any) => {
       try {
         const result = await Share.share({
           message:
@@ -82,6 +82,8 @@ const BuySingleProduct=()=>{
 
 
     const LoadingFunction =async()=>{
+      setLike(value.some(key => key.id == id))
+      console.log(Like)
       setLoad(true)
       let api=`https://nexx-js-e-commerce-app-491i.vercel.app/api/product`;
       try {
@@ -135,12 +137,15 @@ const BuySingleProduct=()=>{
         </View> :
         <>
         <View style={{position:"absolute", bottom:0, backgroundColor:"lightgray", width:"100%", zIndex:3, height:80 ,alignSelf:'flex-end', flexDirection:"row", justifyContent:"space-around",alignItems:"center"}}>
-      <Text style={{marginBottom:0}} onPress={()=>{setLike(!Like)}}>
+        <TouchableOpacity style={{marginBottom:0}} onPress={()=>{setLike(!Like),dispatch(addWishList({id:id,productname:data.name,size:"na",price:data.price,image:data.mainImage,qty:input}))}}>
           {
-              (Like)?<AntDesign name='heart' size={25} color={"red"}/>:
+              (Like)?
+             
+              <AntDesign name='heart' size={25} color={"red"}/>:
               <AntDesign name='hearto' size={25} color={"red"}/>
+             
           }
-      </Text>
+          </TouchableOpacity>
       <TouchableOpacity onPress={()=>{dispatch(addToCart({id:id,productname:data.name,size:"na",price:data.price,image:data.mainImage,qty:input})),showNotice()}}>
             <Text style={{paddingHorizontal:20, paddingVertical:10, backgroundColor:"black" ,color:"white", marginBottom:0, borderRadius:10}} >
           Add to Cart

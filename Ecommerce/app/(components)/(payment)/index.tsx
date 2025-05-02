@@ -460,7 +460,7 @@ console.log(error.response?.data?.message,error.description,error.message )
               </View>
               <View style={{ paddingHorizontal: 20, gap: 10 }}>
                 <Text style={{ fontSize: 16, fontWeight: 600 }}>
-                  Enter the Address No:
+                  Enter the Address :
                 </Text>
                 <TextInput
                   style={{

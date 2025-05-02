@@ -84,8 +84,8 @@ const showNotice=()=>{
                   <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
                 </View>
                 <View style={{paddingHorizontal:20,  gap:10}}>
-                  <Text style={{fontSize:16, fontWeight:600}}>Enter the House No:</Text>
-                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g 122/25 " />
+                  <Text style={{fontSize:16, fontWeight:600}}>Enter the Address :</Text>
+                  <TextInput style={{height:40, width:"100%", borderRadius:20, borderWidth:0.5, paddingLeft:10}} placeholder="e.g bhopal ,m.p " />
                 </View>
                 <View style={{paddingHorizontal:20, marginBottom:10}}>
             <TouchableOpacity style={{justifyContent:"center", alignItems:"center", backgroundColor:"blue", paddingVertical:10, borderRadius:20, margin:0}} onPress={()=>{setModalVisible(false)}}>

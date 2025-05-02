@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import cartReducer from './slice/cart';
+import wishReducer from './slice/wish'
 
 const persistConfig = {
     key: 'root',
@@ -10,10 +11,12 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, cartReducer);
+const persistedReducerTwo = persistReducer(persistConfig, wishReducer);
 
 const store = configureStore({
     reducer: {
         cart: persistedReducer,
+        wish: persistedReducerTwo,
     },middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
           serializableCheck: {

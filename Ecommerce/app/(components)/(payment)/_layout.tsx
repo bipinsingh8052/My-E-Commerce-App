@@ -6,6 +6,8 @@ export default function Paymentlayout() {
     <Stack screenOptions={{headerShown: false}} >
         <Stack.Screen name='index' />
         <Stack.Screen name='setting' />
+        <Stack.Screen name='wishList' />
+        <Stack.Screen name='wishCart' />
     </Stack>
   )
 }

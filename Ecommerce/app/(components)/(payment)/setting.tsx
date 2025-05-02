@@ -15,6 +15,10 @@ export default function Setting() {
       console.error('Error clearing AsyncStorage:', error);
     }
   };
+  const WishListCart:any=()=>{
+    console.log("This is my wish List")
+    router.push("/wishList")
+  }
 
   const checkToken = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -46,6 +50,12 @@ export default function Setting() {
   return (
     <SafeAreaView>
       <ScrollView>
+      <Text style={{ paddingHorizontal: 10, fontSize: 18, fontWeight: 'bold', marginTop: 10 }}>Cart Info</Text>
+      <View style={{ flex: 1, paddingHorizontal: 20, gap: 10, marginTop: 5 }}>
+         <TouchableOpacity onPress={WishListCart}>
+         <Text style={{ color: 'red', fontSize: 15, fontWeight: '300' }}>Wish List</Text>
+         </TouchableOpacity>
+      </View>
         <Text style={{ paddingHorizontal: 10, fontSize: 18, fontWeight: 'bold', marginTop: 10 }}>Settings</Text>
         <View style={{ flex: 1, paddingHorizontal: 20, gap: 10, marginTop: 5 }}>
           <Text style={{ color: 'red', fontSize: 15, fontWeight: '300' }}>Login</Text>
