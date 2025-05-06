@@ -24,7 +24,7 @@ export default function See_All() {
 
 
 let route=useRouter()
-  const handleItemPress=(id)=>{
+  const handleItemPress=(id:any)=>{
     route.push(`/categories_All?id=${id}`);
   }
   useEffect(()=>{loading()},[])

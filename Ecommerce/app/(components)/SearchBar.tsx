@@ -46,6 +46,7 @@ export default function Shop() {
   }
   // got to next page in product detail page 
   useEffect(()=>{loading()},[])
+  // this is search bar from name and price
   useEffect(()=>{
    
     const filteredData = allData.filter((item) => {

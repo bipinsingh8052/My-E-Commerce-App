@@ -8,7 +8,6 @@ export default function TopProduct() {
   const[load,setload]=useState(false)
   const [selectedIndex, setSelectedIndex] = useState(false);
 
-  const products = [1, 2, 3, 4, 5, 6, 7];
 
   const loading=async()=>{
     setload(true)
